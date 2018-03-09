@@ -1,0 +1,22 @@
+header{
+  padding: 1%;
+  height: 200px;
+}
+
+#divCabeceraImagen{
+  display: inline-block;
+  height: 100%;
+  text-align: center;
+  width:19%
+}
+
+#divCabeceraImagen img{
+  height: 200px;
+}
+
+#divCabeceraTitulo{
+  display: inline-block;
+  height: 100%;
+  text-align:center;
+  width:80%
+}
