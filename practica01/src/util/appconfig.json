@@ -1,5 +1,5 @@
 {
-  "imgLogo": "util/recursos/img/reactLogo.png",
+  "imgLogo": "/recursos/img/reactLogo.png",
   "urlApiHerosLocal": "http://192.168.54.10:3000/api/v1/Heroes",
   "urlApiHeros2Local": "http://192.168.54.10:3000/api/v1/Heroes2"
 }
