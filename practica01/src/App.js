@@ -15,7 +15,9 @@ class App extends Component {
     return (
       <div>
         <div>
-          <Cabecera titulo="Titulo de Pagina" urlHome="https://en.wikipedia.org/wiki/Separation_of_concerns" urlImg={  reactLogo } />
+          <Cabecera titulo="Titulo de Pagina"
+                urlHome="https://en.wikipedia.org/wiki/Separation_of_concerns"
+                urlImg={ reactLogo } />
         </div>
         <div className="App">
           <header className="App-header">
