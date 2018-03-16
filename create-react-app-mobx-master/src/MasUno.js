@@ -15,7 +15,7 @@ class MasUno extends Component{
   render(){
     return(
       <div>
-        <button onClick={this.otrafuncion}>otra funcion</button>
+        <button onClick={this.f1}>otra funcion</button>
         <button onClick={() => { VarPrincipalData.aumentarNumero() } }>Aumentar</button>
       </div>
     );
