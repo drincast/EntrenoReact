@@ -20,17 +20,17 @@ class Lista extends Component{
 
     const agregarDiv = varListaData.tareas.forEach(
       (value, index) => (
-        listaDiv.push(<li key={index} onClick={this.eliminarTarea.bind(this, index)}>{value}</li>)
+        listaDiv.push(<li key={index} onClick={this.eliminarTarea.bind(this, index)} className="list-group-item">{value}</li>)
       )
     )
 
     return(
-      <div>
+      <div className="container">
         <h2>Lista</h2>
         <input onKeyPress={this.enviarTarea.bind(this)} />
-        <div>
-          <div>
-            <ul>
+        <div className="row">
+          <div className="col-xs-12">
+            <ul className="list-group">
               {listaDiv}
             </ul>
           </div>
