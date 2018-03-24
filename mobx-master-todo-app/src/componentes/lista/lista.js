@@ -11,13 +11,16 @@ class Lista extends Component{
     }
   }
 
+  eliminarTarea(index){
+    varListaData.eliminarTarea(index);
+  }
 
   render(){
     let listaDiv = [];
 
     const agregarDiv = varListaData.tareas.forEach(
       (value, index) => (
-        listaDiv.push(<li key={index}>{value}</li>)
+        listaDiv.push(<li key={index} onClick={this.eliminarTarea.bind(this, index)}>{value}</li>)
       )
     )
 

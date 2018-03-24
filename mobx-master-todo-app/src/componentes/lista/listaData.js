@@ -10,8 +10,11 @@ class ListaData {
   }
 
   agregarTarea(tarea){
-    console.log(tarea);
     this.tareas.push(tarea);
+  }
+
+  eliminarTarea(index){
+    this.tareas.splice(index, 1);
   }
 }
 
