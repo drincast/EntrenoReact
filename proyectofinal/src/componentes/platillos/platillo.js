@@ -10,7 +10,13 @@ class Platillo extends Component {
     const llenar_array_platillos_div = varTiendaController.platillos.forEach(
       (value, index)=>(
         platillos_div.push(
-          <div>{value.nombre}</div>
+          <div className="list-group-item" key={index}>
+            <div className="panel-body">
+              <img role="presentation" src={logo} className="ImagenPlatillo" />
+              <h2 className="TituloPlatillo">{value.nombre}</h2>
+              <div className="DescripcionPlatillo">{value.descripcion}</div>
+            </div>
+          </div>
         )
       )
     )
