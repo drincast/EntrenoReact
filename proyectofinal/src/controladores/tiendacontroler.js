@@ -14,18 +14,26 @@ class TiendaControles{
           {
             "nombre": "nombrePlatillo",
             "descripcion": "platillo muy rico",
-            "precio": 100,
+            "precio": 110,
             "cantidad": 0
           },
           {
             "nombre": "nombrePlatillo",
             "descripcion": "platillo muy rico",
-            "precio": 100,
+            "precio": 120,
             "cantidad": 0
           }
         ]
       }
     )
+  }
+
+  ponerPlatilloCantidad(indicePlatillo, cantidadPlatillo){
+    this.platillos.forEach((value, index) => {
+      if(indicePlatillo === index){
+        this.platillos[index].cantidad = cantidadPlatillo
+      }
+    });
   }
 }
 
