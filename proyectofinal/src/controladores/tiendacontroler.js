@@ -23,7 +23,28 @@ class TiendaControles{
             "precio": 120,
             "cantidad": 0
           }
+        ],
+        bebidas: [
+          {
+            "nombre": "bebidaUno",
+            "descripcion": "bebida muy rico",
+            "precio": 50,
+            "cantidad": 0
+          },
+          {
+            "nombre": "bebidaDos",
+            "descripcion": "bebida muy rico",
+            "precio": 60,
+            "cantidad": 0
+          },
+          {
+            "nombre": "bebidaTres",
+            "descripcion": "bebida muy rico",
+            "precio": 70,
+            "cantidad": 0
+          }
         ]
+
       }
     )
   }
@@ -32,6 +53,14 @@ class TiendaControles{
     this.platillos.forEach((value, index) => {
       if(indicePlatillo === index){
         this.platillos[index].cantidad = cantidadPlatillo
+      }
+    });
+  }
+
+  ponerBebidaCantidad(indiceBebida, cantidadBebida){
+    this.bebidas.forEach((value, index) => {
+      if(indiceBebida === index){
+        this.bebidas[index].cantidad = cantidadBebida
       }
     });
   }
