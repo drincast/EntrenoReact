@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Página Administración</title>
+  </head>
+  <body>
+    <h2>Página administración</h2>
+
+    <!--forma que permita ingresar el nombre y descripción de cada platillo
+        subir imagen de cada platillo
+    -->
+    <div>
+      <form onsubmit="FuncionDeLaForma()">
+        Nombre: <input type="text" id="txtNombre" name="txtNombre">
+        <br /><br />
+        Descripcion: <textarea type="text" id="txtaDescripcion" name="txtaDescripcion"></textarea>
+        <br /><br />
+        Precio: <input type="text" id="txtPrecio" name="txtPrecio">
+        <br /><br />
+        <input type="submit" value="subir">
+      </form>
+    </div>
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+  <script src="js.js" type="text/javascript"></script>
+</html>

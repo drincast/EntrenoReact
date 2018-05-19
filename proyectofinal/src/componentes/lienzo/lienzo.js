@@ -13,7 +13,11 @@ const rutas = (
 )
 
 class Lienzo extends Component{
+
   render(){
+    console.log(this.props.location);
+    console.log(this.props.match);
+    console.log(this.props.history);
     return(
       <div className="container">
         <div className="jumbotron">
