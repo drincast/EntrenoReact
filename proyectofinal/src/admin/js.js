@@ -13,12 +13,54 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var escribirPlatillo = function(pNombre, pDescripcion, pPrecio){
+var ImprimirPlatillos = function(){
+  var query = database.ref('alimentos/');
+  let ul = document.getElementById("lstPlatillos");
+  let itemKey;
+  let item;
+
+  query.on('value', function(snapshot) {
+    snapshot.forEach(function(value, index){
+      let li = document.createElement('li');
+      let div = document.createElement('div');
+      let img = document.createElement('img');
+      let br = document.createElement('br');
+
+      itemKey = value.key;
+      item = value.val();
+
+      storageRef.child(item.urlImagen).getDownloadURL().then(
+        function(url){
+          img.src = url;
+          img.height = '60';
+          img.alt = 'imagen de' + item.nombre;
+        }
+      );
+
+      div.appendChild(img);
+      li.appendChild(div);
+      li.appendChild(document.createTextNode("nombre:" + item.nombre));
+      li.appendChild(br);
+      li.appendChild(document.createTextNode("nombre:" + item.descripcion));
+      li.appendChild(document.createTextNode("nombre:" + item.precio));
+
+      ul.appendChild(li);
+
+
+
+
+      console.log(index, value.key, value.val());
+    });
+  });
+}
+
+var escribirPlatillo = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
   database.ref('alimentos/').push({
     nombre: pNombre,
     descripcion: pDescripcion,
     precio: pPrecio,
-    cantidad: 0
+    cantidad: 0,
+    urlImagen: pUrlImagen
   });
 }
 
@@ -28,13 +70,77 @@ function FuncionDeLaForma(){
     var descripcion = document.getElementById('txtaDescripcion').value;
     var precio = document.getElementById('txtPrecio').value;
 
-    alert(nombre + ' ' + descripcion + ' ' + precio);
+    var urlImg = document.getElementById('txtDirImg').value;
 
-    escribirPlatillo(nombre, descripcion, precio);
+    alert(nombre + ' ' + descripcion + ' ' + precio + ' ' + urlImg);
+
+    escribirPlatillo(nombre, descripcion, precio, urlImg);
+
+    console.log("fin");
   } catch (e) {
     console.log(e);
+    return false;
   } finally {
 
   }
 
+}
+
+//visualizar imagen
+var storage = firebase.storage();
+var storageRef = storage.ref();
+
+function VisualizarArchivo(){
+  var preview = document.querySelector("img");
+  var archivo = document.querySelector("input[type=file]").files[0];
+  var lector = new FileReader();
+
+  try {
+    lector.onloadend = function(){
+      preview.src = lector.result;
+    }
+
+    if(archivo){
+      lector.readAsDataURL(archivo);
+
+      var subirImagen = storageRef.child("platillos/" + archivo.name).put(archivo);
+
+      subirImagen.on("state_changed", function(snapshot){
+        //cambios en la carga de la imgen
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        },
+        function(error){
+          console.log("Error en la carga de la imagen: " + error);
+        },
+        function(){
+          console.log(subirImagen);
+          console.log(subirImagen.snapshot);
+          //console.log(subirImagen.snapshot.metadata.fullPath);
+          console.log(subirImagen.snapshot.downloadURL);
+          document.getElementById("txtDirImg").value = subirImagen.snapshot.metadata.fullPath;
+          storageRef.child(subirImagen.snapshot.metadata.fullPath).getDownloadURL().then(
+            function(url){
+              console.log(url);
+            }
+          )
+        }
+      );
+    }
+    else{
+      preview.src = "";
+    }
+  } catch (e) {
+    throw new Error( e );
+  } finally {
+
+  }
 }

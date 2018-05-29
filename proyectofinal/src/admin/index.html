@@ -7,16 +7,26 @@
   <body>
     <h2>Página administración</h2>
 
+    <a href="platillos.html">Platillos</a>
+    <br><br>
     <!--forma que permita ingresar el nombre y descripción de cada platillo
         subir imagen de cada platillo
     -->
     <div>
-      <form onsubmit="FuncionDeLaForma()">
-        Nombre: <input type="text" id="txtNombre" name="txtNombre">
+      <input type="file" id="iptFile" onchange="VisualizarArchivo()" />
+      <br /><br />
+      <img id="imgPlatillo" src="" alt="imagne de platillo" height="300">
+    </div>
+
+    <div>
+      <form onsubmit="return FuncionDeLaForma()">
+        Nombre: <input type="text" id="txtNombre" name="txtNombre" required>
         <br /><br />
-        Descripcion: <textarea type="text" id="txtaDescripcion" name="txtaDescripcion"></textarea>
+        Descripcion: <textarea type="text" id="txtaDescripcion" name="txtaDescripcion" required></textarea>
         <br /><br />
-        Precio: <input type="text" id="txtPrecio" name="txtPrecio">
+        Precio: <input type="text" id="txtPrecio" name="txtPrecio" required>
+        <br /><br />
+        <input type="text" id="txtDirImg" name="txtDirImg" required>
         <br /><br />
         <input type="submit" value="subir">
       </form>
