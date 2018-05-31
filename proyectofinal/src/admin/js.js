@@ -21,10 +21,12 @@ var ImprimirPlatillos = function(){
 
   query.on('value', function(snapshot) {
     snapshot.forEach(function(value, index){
-      let li = document.createElement('li');
+      let li = document.createElement('li')
       let div = document.createElement('div');
       let img = document.createElement('img');
       let br = document.createElement('br');
+
+
 
       itemKey = value.key;
       item = value.val();
@@ -38,6 +40,8 @@ var ImprimirPlatillos = function(){
       );
 
       div.appendChild(img);
+      div.style.float = "right";
+      li.setAttribute("class", "list-group-item");
       li.appendChild(div);
       li.appendChild(document.createTextNode("nombre:" + item.nombre));
       li.appendChild(br);
@@ -62,6 +66,17 @@ var escribirPlatillo = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
     cantidad: 0,
     urlImagen: pUrlImagen
   });
+}
+
+var EliminarPlatillos = function(id){
+  databse.ref('alimentos/' + id).remove()
+  .then(function(){
+    alert("se elimino el platillo");
+    console.log("se elimino el platillo");
+  })
+  .catch(function(erro){
+    console.log("Error, no se borro el key: " + id);
+  })
 }
 
 function FuncionDeLaForma(){
