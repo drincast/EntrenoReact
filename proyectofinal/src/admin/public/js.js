@@ -23,7 +23,7 @@ var ingresar = function(){
   var email = document.getElementById("txtEmail").value;
   var password = document.getElementById("txtPass").value;
 
-  console.log(email, password);
+  //console.log(email, password);
 
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(function(){
@@ -147,12 +147,12 @@ var EliminarPlatillos = function(id, urlImage){
     imgRef.delete()
     .then(
       function(){
-        console.log("se elimino la imagen: " + urlImg);
+        console.log("se elimino la imagen: " + urlImage);
       }
     )
     .catch(
       function(error){
-        console.error();(error);
+        console.error(error);
       }
     );
     alert("se elimino el platillo");
