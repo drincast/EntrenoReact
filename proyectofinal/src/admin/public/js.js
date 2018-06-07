@@ -23,11 +23,9 @@ var ingresar = function(){
   var email = document.getElementById("txtEmail").value;
   var password = document.getElementById("txtPass").value;
 
-  //console.log(email, password);
-
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(function(){
-    window.location = "agregarplatillo.html";
+    window.location = "administrar.html";
   })
   .catch(function(error) {
     // Handle Errors here.
@@ -237,4 +235,70 @@ function VisualizarArchivo(){
   } finally {
 
   }
+}
+
+
+
+//mostrar Bebidas
+var ImprimirBebidas = function(){
+  var query = database.ref('bebidas/');
+  let ul = document.getElementById("lstBebidas");
+  let itemKey;
+  let item;
+
+  console.log("inicia!");
+  while(ul.firstChild)
+    ul.removeChild(ul.firstChild);
+
+  query.once('value', function(snapshot) {
+    snapshot.forEach(function(value, index){
+      let li = document.createElement('li')
+      let div = document.createElement('div');
+      let img = document.createElement('img');
+      let button = document.createElement('button');
+
+      itemKey = value.key;
+      item = value.val();
+
+
+
+      button.setAttribute('id', itemKey);
+
+      if(item.urlImage != undefined){
+        storageRef.child(item.urlImagen).getDownloadURL().then(
+          function(url){
+            img.src = url;
+            img.height = '60';
+            img.alt = 'imagen de' + item.nombre;
+          }
+        );
+
+        button.setAttribute('data-url-image', item.urlImagen);
+      }
+      else{
+        button.setAttribute('data-url-image', "");
+      }
+      button.setAttribute('onclick', "EliminarBebida(this.id, this.dataset.urlImage)");
+      button.setAttribute('class', "btn btn-danger");
+      button.appendChild(document.createTextNode("Eliminar Bebida"));
+
+      div.appendChild(img);
+      div.style.float = "right";
+      li.setAttribute("class", "list-group-item");
+      li.appendChild(div);
+      li.appendChild(document.createTextNode("Nombre: " + item.nombre));
+      li.appendChild(document.createElement('br'));
+      li.appendChild(document.createTextNode("Descripción: " + item.descripcion));
+      li.appendChild(document.createElement('br'));
+      li.appendChild(document.createTextNode("Precio: " + item.precio));
+      li.appendChild(document.createElement('br'));
+      li.appendChild(document.createElement('br'));
+      li.appendChild(button);
+
+      ul.appendChild(li);
+
+      //console.log(index, value.key, value.val());
+
+    });
+  });
 }
