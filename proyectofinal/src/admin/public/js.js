@@ -72,7 +72,7 @@ var ImprimirPlatillos = function(){
   while(ul.firstChild)
     ul.removeChild(ul.firstChild);
 
-  query.once('value', function(snapshot) {
+  query.on('value', function(snapshot) {
     snapshot.forEach(function(value, index){
       let li = document.createElement('li')
       let div = document.createElement('div');
@@ -162,7 +162,7 @@ var EliminarPlatillos = function(id, urlImage){
   })
 }
 
-function FuncionDeLaForma(event){
+function FuncionDeLaForma(event, tipo){
   try {
     var nombre = document.getElementById('txtNombre').value;
     var descripcion = document.getElementById('txtaDescripcion').value;
@@ -171,7 +171,10 @@ function FuncionDeLaForma(event){
 
     //event.preventDefault();
 
-    escribirPlatillo(nombre, descripcion, precio, urlImg);
+    if(tipo === 'p')
+      escribirPlatillo(nombre, descripcion, precio, urlImg);
+    else
+      escribirBebida(nombre, descripcion, precio, urlImg);
 
   } catch (e) {
     alert("no se logro agregar el platillo")
@@ -237,6 +240,24 @@ function VisualizarArchivo(){
   }
 }
 
+
+
+//CREAR Platillos
+var escribirBebida = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
+  database.ref('bebidas/').push({
+    nombre: pNombre,
+    descripcion: pDescripcion,
+    precio: pPrecio,
+    cantidad: 0,
+    urlImagen: pUrlImagen
+  })
+  .then(function(){
+    alert("Se agrego la bebida");
+  })
+  .catch(function(error){
+    alert("error: " + error);
+  });
+}
 
 
 //mostrar Bebidas
