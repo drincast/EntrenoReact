@@ -185,10 +185,18 @@ function FuncionDeLaForma(event, tipo){
   }
 }
 
-function VisualizarArchivo(){
+function VisualizarArchivo(tipo){
   var preview = document.querySelector("img");
   var archivo = document.querySelector("input[type=file]").files[0];
   var lector = new FileReader();
+  var tipoRuta = '';
+
+  if(tipo === 0){
+    tipoRuta = "platillos/";
+  }
+  else{
+    tipoRuta = "bebidas/";
+  }
 
   try {
     lector.onloadend = function(){
@@ -198,7 +206,7 @@ function VisualizarArchivo(){
     if(archivo){
       lector.readAsDataURL(archivo);
 
-      var subirImagen = storageRef.child("platillos/" + archivo.name).put(archivo);
+      var subirImagen = storageRef.child(tipoRuta + archivo.name).put(archivo);
 
       subirImagen.on("state_changed", function(snapshot){
         //cambios en la carga de la imgen
@@ -242,7 +250,7 @@ function VisualizarArchivo(){
 
 
 
-//CREAR Platillos
+//CREAR Bebidas
 var escribirBebida = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
   database.ref('bebidas/').push({
     nombre: pNombre,
@@ -258,7 +266,6 @@ var escribirBebida = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
     alert("error: " + error);
   });
 }
-
 
 //mostrar Bebidas
 var ImprimirBebidas = function(){
@@ -280,12 +287,9 @@ var ImprimirBebidas = function(){
 
       itemKey = value.key;
       item = value.val();
-
-
-
       button.setAttribute('id', itemKey);
 
-      if(item.urlImage != undefined){
+      if(item.urlImagen != undefined){
         storageRef.child(item.urlImagen).getDownloadURL().then(
           function(url){
             img.src = url;
@@ -322,4 +326,29 @@ var ImprimirBebidas = function(){
 
     });
   });
+}
+
+var EliminarBebida = function(id, urlImage){
+  let imgRef = storageRef.child(urlImage);
+
+  database.ref('bebidas/' + id).remove()
+  .then(function(){
+    imgRef.delete()
+    .then(
+      function(){
+        console.log("se elimino la imagen: " + urlImage);
+      }
+    )
+    .catch(
+      function(error){
+        console.error(error);
+      }
+    );
+    alert("se elimino la bebida");
+    console.log("se elimino la bebida");
+    ImprimirBebidas();
+  })
+  .catch(function(erro){
+    console.log("Error, no se borro el key: " + id);
+  })
 }
