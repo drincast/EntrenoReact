@@ -12,7 +12,7 @@ class Bebida extends Component {
 
   render(){
     let bebidas_div = [];
-    const llenar_array_bebidas_div = varTiendaController.bebidas.forEach(
+    const llenar_array_bebidas_div = varTiendaController.bebidas.forEach(      
       (value, index)=>(
         bebidas_div.push(
           <div className="list-group-item" key={index}>
