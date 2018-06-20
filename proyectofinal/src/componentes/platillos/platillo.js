@@ -4,6 +4,7 @@ import logo from '../../logo.svg';
 import './platillo.css';
 import varTiendaController from '../../controladores/tiendacontroler';
 import Ordenar from '../ordenar/ordenar';
+import datos from '../../firebase';
 
 class Platillo extends Component {
   pasarCantidadAcontroladorPlatillo(indice_d, cantidad_d){
@@ -12,20 +13,37 @@ class Platillo extends Component {
 
   render(){
     let platillos_div = [];
-    const llenar_array_platillos_div = varTiendaController.platillos.forEach(
-      (value, index)=>(
+    const llenar_array_platillos_div = varTiendaController.platillos.forEach(      
+      (value, index)=>{
+        let urlImg;
+
+        if(value.urlImagen !== undefined){
+          datos.archivos.child(value.urlImagen).getDownloadURL()
+          .then(
+            function(url)
+            {
+              urlImg = url;
+              console.log('****');              
+              console.log('urlImg', urlImg);              
+            }
+          );
+        }
+
         platillos_div.push(
           <div className="list-group-item" key={index}>
             <div className="panel-body">
-              <img role="presentation" src={logo} className="ImagenPlatillo" />
+              <img role="presentation" src={String(urlImg)} className="ImagenPlatillo" />
               <h2 className="TituloPlatillo">{value.nombre}</h2>
               <div className="DescripcionPlatillo">{value.descripcion}</div>
 
               <Ordenar precio={value.precio} indice={index} establecerCantidad={this.pasarCantidadAcontroladorPlatillo.bind(this)}/>
             </div>
           </div>
-        )
-      )
+        );
+
+        
+        
+      }
     )
 
     return(

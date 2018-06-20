@@ -1,7 +1,37 @@
-import { extendObservable } from 'mobx'
+import { extendObservable } from 'mobx';
+import datos from '../firebase';
 
 class TiendaControles{
   constructor(){
+
+    var self = this;
+
+    datos.bebidas.once('value')
+    .then(
+      function(snapshot){
+        snapshot.forEach(
+          function(childSnapshot){
+            const key = childSnapshot.key;
+            const val = childSnapshot.val();     
+            self.bebidas.push(val);
+          }
+        );
+      }
+    );
+
+    datos.platillos.once('value')
+    .then(
+      function(snapshot){
+        snapshot.forEach(
+          function(childSnapshot){
+            const key = childSnapshot.key;
+            const val = childSnapshot.val();     
+            self.platillos.push(val);
+          }
+        );
+      }
+    );
+
     extendObservable(this,
       {
         platillos: [
