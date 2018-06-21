@@ -120,13 +120,14 @@ var ImprimirPlatillos = function(){
 }
 
 //CREAR Platillos
-var escribirPlatillo = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
+var escribirPlatillo = function(pNombre, pDescripcion, pPrecio, pUrlImagen, pUrlImageT){
   database.ref('alimentos/').push({
     nombre: pNombre,
     descripcion: pDescripcion,
     precio: pPrecio,
     cantidad: 0,
-    urlImagen: pUrlImagen
+    urlImagen: pUrlImagen,
+    urlImageT: pUrlImageT
   })
   .then(function(){
     alert("Se agrego el platillo");
@@ -168,11 +169,13 @@ function FuncionDeLaForma(event, tipo){
     var descripcion = document.getElementById('txtaDescripcion').value;
     var precio = document.getElementById('txtPrecio').value;
     var urlImg = document.getElementById('txtDirImg').value;
+    var urlImgT = document.getElementById('txtUrlImageT').value;
 
     //event.preventDefault();
 
-    if(tipo === 'p')
-      escribirPlatillo(nombre, descripcion, precio, urlImg);
+    //if(tipo === 'p')
+    if(tipo === undefined)
+      escribirPlatillo(nombre, descripcion, precio, urlImg, urlImgT);
     else
       escribirBebida(nombre, descripcion, precio, urlImg);
 
@@ -225,14 +228,23 @@ function VisualizarArchivo(tipo){
           console.log("Error en la carga de la imagen: " + error);
         },
         function(){
-          console.log(subirImagen);
-          console.log(subirImagen.snapshot);
-          //console.log(subirImagen.snapshot.metadata.fullPath);
-          console.log(subirImagen.snapshot.downloadURL);
+          // console.log(subirImagen);
+          // console.log(subirImagen.snapshot);
+          // console.log(subirImagen.snapshot.metadata.fullPath);
+          // console.log(subirImagen.snapshot.downloadURL);
           document.getElementById("txtDirImg").value = subirImagen.snapshot.metadata.fullPath;
           storageRef.child(subirImagen.snapshot.metadata.fullPath).getDownloadURL().then(
             function(url){
-              console.log(url);
+              // console.log("DATOS"
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).bucket
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).fullPath
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).name
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).parent
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).root
+              //   , storageRef.child(subirImagen.snapshot.metadata.fullPath).storage
+              // );
+              document.getElementById("txtUrlImageT").value = url;
+              // console.log(url);
             }
           )
         }

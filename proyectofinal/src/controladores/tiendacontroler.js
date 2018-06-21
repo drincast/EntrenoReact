@@ -12,7 +12,7 @@ class TiendaControles{
         snapshot.forEach(
           function(childSnapshot){
             const key = childSnapshot.key;
-            const val = childSnapshot.val();     
+            const val = childSnapshot.val();
             self.bebidas.push(val);
           }
         );
@@ -25,7 +25,7 @@ class TiendaControles{
         snapshot.forEach(
           function(childSnapshot){
             const key = childSnapshot.key;
-            const val = childSnapshot.val();     
+            const val = childSnapshot.val();
             self.platillos.push(val);
           }
         );
@@ -35,24 +35,7 @@ class TiendaControles{
     extendObservable(this,
       {
         platillos: [
-          {
-            "nombre": "nombrePlatillo",
-            "descripcion": "platillo muy rico",
-            "precio": 100,
-            "cantidad": 0
-          },
-          {
-            "nombre": "nombrePlatillo",
-            "descripcion": "platillo muy rico",
-            "precio": 110,
-            "cantidad": 0
-          },
-          {
-            "nombre": "nombrePlatillo",
-            "descripcion": "platillo muy rico",
-            "precio": 120,
-            "cantidad": 0
-          }
+          
         ],
         bebidas: [
           {
