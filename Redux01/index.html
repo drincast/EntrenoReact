@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Redux</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.min.js"></script>
+</head>
+<body>
+    <div>
+        valor: <span id="numero"></span>
+        <br>
+        <button id="aum" onclick="aumentar()">Aumentar</button>
+        <button id="dis" onclick="disminuir()">Disminuir</button>
+    </div>
+    <script type="text/javascript">
+        //REDUX GAME
+        var self = this;
+
+        //I. STATE
+
+        var state = {
+            cantidad: 0,
+        }
+
+        //II. STORE 
+        //parametros reducer: state:
+
+        var store = Redux.createStore(reducer, state);
+
+        // III. REDUCER
+        //función que retorna un nuevo estado
+        //parametros, state y acción
+        function reducer(state, action){
+            var nuevoEstado = Object.assign({}, state);
+            var enviarNuevoEstado = false;
+
+            switch (action.type) {
+                case 'AUM':
+                    console.log('state.cantidad', state.cantidad);
+                    nuevoEstado.cantidad = state.cantidad + 1;
+                    console.log('self.state.cantidad', self.state.cantidad);
+                    enviarNuevoEstado = true;
+                    break;
+                case 'DIS':
+                    console.log('state.cantidad', state.cantidad);
+                    nuevoEstado.cantidad = state.cantidad - 1;
+                    console.log('self.state.cantidad', self.state.cantidad);
+                    enviarNuevoEstado = true;
+                    break;            
+                default:
+                    enviarNuevoEstado = false;
+                    break;
+            }
+
+            // if(action.type === 'AUM'){
+            //     console.log('state.cantidad', state.cantidad);
+            //     nuevoEstado.cantidad = state.cantidad + 1;
+            //     console.log('self.state.cantidad', self.state.cantidad);
+            //     return nuevoEstado
+            // }
+
+            if(enviarNuevoEstado)
+                return nuevoEstado;
+            else
+                return state;
+        }
+
+        // IV. ACTION
+        // objeto javascript con el requisito de tener un key "type"
+        // se activa atraves de un store.dispatch(action)
+
+        var actionAumentar = {
+            type: 'AUM'
+        }
+
+        var actionDisminuir = {
+            type: 'DIS'
+        }
+
+        // V. DISPATCH ejecuta la llamad aal STORE y pasa el tipo de accion
+        //store.dispatch(actionAumentar);
+
+        var aumentar = function(){
+            store.dispatch(actionAumentar);
+        }
+
+        var disminuir = function(){
+            store.dispatch(actionDisminuir);
+        }
+
+        var numero = document.getElementById('numero');
+        
+        var mostrarNumero = function(){
+            // VI. acceder al state por medio del store
+            numero.innerHTML = store.getState().cantidad;
+        }
+
+        // VII subcribir el método que muestra el state, para que se ejecute nuevamente para cuando el store lo indique
+
+        store.subscribe(mostrarNumero);
+
+        mostrarNumero();
+    </script>
+</body>
+</html>
