@@ -11,30 +11,26 @@ class Platillo extends Component {
     varTiendaController.ponerPlatilloCantidad(indice_d, cantidad_d);
   }
 
-  // obtenerUrlImg(uno, dos, tres, event){
-  //   console.log("TARGET", uno);
-  //   console.log("IDIMAGEN", dos);
-  //   console.log("O", event.target);
-  // // onLoad={this.obtenerUrlImg.bind(this, 1, 2, 3)}
-  // }
-
   obtenerUrlImg(event, idImagen){
-    // console.log("TARGET", event.target);
-    // console.log("IDIMAGEN", idImagen);
     event.persist();
+    let obj = event.target; 
     if(idImagen !== undefined){
-      datos.archivos.child(idImagen).getDownloadURL()
+      console.log('obj.dataset.load', obj.dataset.load);      
+      if(obj.dataset.load === '0'){
+        datos.archivos.child(idImagen).getDownloadURL()
       .then(
         function(url)
         {
           if(event.target !== null){
             event.target.setAttribute('src', url);
-            console.log('****');
-            console.log('urlImg', event.target.getAttribute('src'));
+            // console.log('****');
+            // console.log('urlImg', event.target.getAttribute('src'));
+            obj.dataset.load = '1';
           }
-
         }
       );
+      }
+      
     }
   }
 
@@ -44,12 +40,10 @@ class Platillo extends Component {
       (value, index)=>{
         let urlImg;
 
-
-
         platillos_div.push(
           <div className="list-group-item" key={index}>
             <div className="panel-body">
-              <img role="presentation" src={value.urlImageT} onLoad={(event) => this.obtenerUrlImg(event, value.urlImagen)} className="ImagenPlatillo" />
+              <img role="presentation" data-load="0" src={value.urlImageT} onLoad={(event) => this.obtenerUrlImg(event, value.urlImagen)} className="ImagenPlatillo" />
               <h2 className="TituloPlatillo">{value.nombre}</h2>
               <div className="DescripcionPlatillo">{value.descripcion}</div>
 
@@ -57,9 +51,6 @@ class Platillo extends Component {
             </div>
           </div>
         );
-
-
-
       }
     )
 

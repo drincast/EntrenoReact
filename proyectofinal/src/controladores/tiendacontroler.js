@@ -34,30 +34,8 @@ class TiendaControles{
 
     extendObservable(this,
       {
-        platillos: [
-          
-        ],
-        bebidas: [
-          {
-            "nombre": "bebidaUno",
-            "descripcion": "bebida muy rico",
-            "precio": 50,
-            "cantidad": 0
-          },
-          {
-            "nombre": "bebidaDos",
-            "descripcion": "bebida muy rico",
-            "precio": 60,
-            "cantidad": 0
-          },
-          {
-            "nombre": "bebidaTres",
-            "descripcion": "bebida muy rico",
-            "precio": 70,
-            "cantidad": 0
-          }
-        ]
-
+        platillos: [],
+        bebidas: []
       }
     )
   }

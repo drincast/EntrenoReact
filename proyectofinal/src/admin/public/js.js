@@ -173,11 +173,10 @@ function FuncionDeLaForma(event, tipo){
 
     //event.preventDefault();
 
-    //if(tipo === 'p')
-    if(tipo === undefined)
+    if(tipo === 'p')
       escribirPlatillo(nombre, descripcion, precio, urlImg, urlImgT);
     else
-      escribirBebida(nombre, descripcion, precio, urlImg);
+      escribirBebida(nombre, descripcion, precio, urlImg, urlImgT);
 
   } catch (e) {
     alert("no se logro agregar el platillo")
@@ -263,13 +262,14 @@ function VisualizarArchivo(tipo){
 
 
 //CREAR Bebidas
-var escribirBebida = function(pNombre, pDescripcion, pPrecio, pUrlImagen){
+var escribirBebida = function(pNombre, pDescripcion, pPrecio, pUrlImagen, pUrlImageT){
   database.ref('bebidas/').push({
     nombre: pNombre,
     descripcion: pDescripcion,
     precio: pPrecio,
     cantidad: 0,
-    urlImagen: pUrlImagen
+    urlImagen: pUrlImagen,
+    urlImageT: pUrlImageT
   })
   .then(function(){
     alert("Se agrego la bebida");
