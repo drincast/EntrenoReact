@@ -173,6 +173,9 @@ function FuncionDeLaForma(event, tipo){
 
     //event.preventDefault();
 
+    console.log('tipo', tipo);
+    
+
     if(tipo === 'p')
       escribirPlatillo(nombre, descripcion, precio, urlImg, urlImgT);
     else
