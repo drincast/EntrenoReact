@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.min.js"></script>
+</head>
+<body>
+    <h2>Todo App</h2>
+    <br>
+    <label for="txtTexto">Ingresar tarea:</label>
+    <input type="text" id="txtTexto" onkeypress="agregarTarea(event);" />
+    <!-- agregar evento -->
+
+    <ul id="lstItems">
+
+    </ul>
+
+    <script type="text/javascript">
+        //estado inicial
+        var state = {
+            lista: []
+        };
+
+        //crear el store
+        var store = Redux.createStore(reducer, state);
+
+        //reducer
+        function reducer(state, action){
+            let nuevoEstado = Object.assign({}, state);
+
+            if(action.type === "AGR"){
+                nuevoEstado.lista.push(
+                    {
+                        id: action.id,
+                        tarea: `<li>${action.tarea}</li> <button onclick='eliminarTarea(${action.id})'>Eliminar</button>`  //  '"<li></li>"'
+                    }
+                );
+                console.log(nuevoEstado);
+                
+                return nuevoEstado;
+            }
+            else if (action.type === "ELI"){
+                nuevoEstado.lista.splice(action.id, 1);
+                return nuevoEstado;
+            }
+
+            return state;
+        }
+
+        //accion
+        // var actionA = {
+        //     type: 'AGR'
+        // }
+
+        // action creator
+        var actionAgregar = function(tarea, id) {
+            return {
+                type: 'AGR',
+                tarea, //tarea2 = tarea
+                id
+            }
+        }
+
+        var actionEliminar = function(id) {
+            return {
+                type: 'ELI',
+                id
+            }
+        }
+
+        var id = 1;
+
+        var agregarTarea = function(e){
+            if(e.keyCode === 13){
+                let tarea = e.target.value;                
+                store.dispatch(actionAgregar(tarea, id));
+                //console.log(tarea);
+                e.target.value = "";
+                id++;
+            }
+        }
+
+        var eliminarTarea = function(id){
+            console.log(id);
+            store.dispatch(actionEliminar(id-1));
+            //id--;
+        }
+
+        var mostrarTareas = function(){
+            let listaD = document.getElementById('lstItems');
+            let elementos = store.getState().lista;
+            let mostrarElementos = elementos.map(
+                function(elemento){
+                    return elemento.tarea;
+                }
+            );
+
+            //console.log(mostrarElementos);            
+
+            listaD.innerHTML = mostrarElementos;
+        }
+
+        store.subscribe(mostrarTareas);
+
+    </script>
+</body>
+</html>
