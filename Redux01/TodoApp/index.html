@@ -31,19 +31,27 @@
         function reducer(state, action){
             let nuevoEstado = Object.assign({}, state);
 
-            if(action.type === "AGR"){
+            if(action.type === "AGR"){                
                 nuevoEstado.lista.push(
                     {
                         id: action.id,
                         tarea: `<li>${action.tarea}</li> <button onclick='eliminarTarea(${action.id})'>Eliminar</button>`  //  '"<li></li>"'
                     }
                 );
-                console.log(nuevoEstado);
-                
+
                 return nuevoEstado;
             }
             else if (action.type === "ELI"){
-                nuevoEstado.lista.splice(action.id, 1);
+                //nuevoEstado.lista.splice(action.id, 1);
+                nuevoEstado.lista = state.lista.filter(
+                    (item) => {
+                        if(action.id !== item.id){
+                            console.log("item", item);
+                            return item;
+                        }
+                    }
+                );
+
                 return nuevoEstado;
             }
 
@@ -84,23 +92,46 @@
         }
 
         var eliminarTarea = function(id){
-            console.log(id);
-            store.dispatch(actionEliminar(id-1));
+            //console.log(id);
+            store.dispatch(actionEliminar(id));
             //id--;
         }
 
         var mostrarTareas = function(){
             let listaD = document.getElementById('lstItems');
             let elementos = store.getState().lista;
-            let mostrarElementos = elementos.map(
-                function(elemento){
-                    return elemento.tarea;
-                }
-            );
+            //console.log("elementos", elementos);
+            
+            let mostrarElementos;
 
-            //console.log(mostrarElementos);            
+            if(elementos !== undefined){
+                if(elementos.length > 0){
+                    mostrarElementos = elementos.map(
+                        function(elemento){
+                            return elemento.tarea;
+                        }
+                    );
+                }                
+            }            
 
-            listaD.innerHTML = mostrarElementos;
+            //console.log(mostrarElementos);
+
+            if(mostrarElementos !== undefined){
+                let str = "";
+
+                mostrarElementos.forEach (item => {
+                    str = str + item;
+                });
+
+                listaD.innerHTML = str;
+            }
+            else{
+                listaD.innerHTML = "";
+            }
+
+            
+
+            //console.log(listaD.innerHTML);            
         }
 
         store.subscribe(mostrarTareas);
