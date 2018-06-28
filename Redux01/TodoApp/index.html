@@ -32,12 +32,19 @@
             let nuevoEstado = Object.assign({}, state);
 
             if(action.type === "AGR"){                
-                nuevoEstado.lista.push(
+                // nuevoEstado.lista.push(
+                //     {
+                //         id: action.id,
+                //         tarea: `<li>${action.tarea}</li> <button onclick='eliminarTarea(${action.id})'>Eliminar</button>`  //  '"<li></li>"'
+                //     }
+                // );
+
+                nuevoEstado.lista = state.lista.concat([
                     {
                         id: action.id,
-                        tarea: `<li>${action.tarea}</li> <button onclick='eliminarTarea(${action.id})'>Eliminar</button>`  //  '"<li></li>"'
+                        tarea: `<li>${action.tarea}</li> <button onclick='eliminarTarea(${action.id})'>Eliminar</button>`
                     }
-                );
+                ]);
 
                 return nuevoEstado;
             }
