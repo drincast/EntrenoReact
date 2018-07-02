@@ -31,7 +31,7 @@
         function reducer(state, action){
             let nuevoEstado = Object.assign({}, state);
 
-            if(action.type === "AGR"){                
+            if(action.type === "AGR"){
                 // nuevoEstado.lista.push(
                 //     {
                 //         id: action.id,
@@ -89,8 +89,9 @@
         var id = 1;
 
         var agregarTarea = function(e){
+          console.log(e, e.target, e.keyCode);
             if(e.keyCode === 13){
-                let tarea = e.target.value;                
+                let tarea = e.target.value;
                 store.dispatch(actionAgregar(tarea, id));
                 //console.log(tarea);
                 e.target.value = "";
@@ -108,7 +109,7 @@
             let listaD = document.getElementById('lstItems');
             let elementos = store.getState().lista;
             //console.log("elementos", elementos);
-            
+
             let mostrarElementos;
 
             if(elementos !== undefined){
@@ -118,8 +119,8 @@
                             return elemento.tarea;
                         }
                     );
-                }                
-            }            
+                }
+            }
 
             //console.log(mostrarElementos);
 
@@ -136,9 +137,9 @@
                 listaD.innerHTML = "";
             }
 
-            
 
-            //console.log(listaD.innerHTML);            
+
+            //console.log(listaD.innerHTML);
         }
 
         store.subscribe(mostrarTareas);
