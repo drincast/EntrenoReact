@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 
 const state = {
-    cantidad: 2
+    cantidad: 0
 };
 
 // const reducerNumero = (state = {cantidad: 2} , action) => {
@@ -41,7 +42,7 @@ const state = {
 //     }
 // };
 
-const reducerNumero = function(state = {cantidad: 2} , action) {
+const reducerNumero = function(state = {cantidad: 0} , action) {
     let nuevoEstado = Object.assign({}, state);
     let esNuevoEstado = false;
 
@@ -145,13 +146,18 @@ const prueba = {
 
 //const store = createStore(reducer, state);
 //esta declaración hace que se ejecuten las funciones al cargar el componete
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(ReduxThunk));
+
+//thunk es una función que engloba una expresión, y hace que esta se retrase
+
+//redux thunk middleware permite escribir action creator que retornen una funcion en vez de una accion
+//Se usa para hacer acciones asincronas
 
 ReactDOM.render(
     //I. implementar el provaider
-    //<Provider store={store}>
-        <App />,
-    //</Provider>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
 );
 registerServiceWorker();
