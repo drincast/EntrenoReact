@@ -1,0 +1,15 @@
+paquetes necesarios para la aplicación
+
+create-react-app
+
+npm install redux --save
+
+npm install react-redux --save
+
+npm install react-router-dom --save
+
+-- redux-form se usa para validar formularios
+npm install react-form --save
+
+-- axios libreria para realizar llamadas http, para llamadas a recursos rest
+npm install axios --save
