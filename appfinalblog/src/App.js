@@ -5,7 +5,7 @@ import Home from './components/initial/home';
 import Login from './components/initial/login';
 import Signup from './components/initial/signup';
 
-import logo from './logo.svg';
+
 import './App.css';
 
 const Header = () => {
