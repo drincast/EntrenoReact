@@ -25,6 +25,11 @@ const allPostF = (state={posts: []}, action) => {
             newState.posts = state.posts.concat(action.data);
             isNewState = true;
             break;
+        
+        case 'CLEAR_DATA':
+            newState.posts = [];
+            isNewState = true;
+            break;
 
         default:
             isNewState = false;

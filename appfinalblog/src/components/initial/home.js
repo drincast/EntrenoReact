@@ -6,19 +6,34 @@ import logo from '../../logo.svg';
 
 
 class Home extends Component {
-    getAllPosts = () => {
+    componentDidMount(){
         this.props.getAllPostFunctionDispatch();
+    }
+
+    componentWillUnmount(){
+        this.props.clearPostsfunctionDispatch();
+    }
+
+    getAllPosts = () => {
+        //this.props.getAllPostFunctionDispatch();
+        const posts = this.props.allPosts.map( (post) => {
+            return(
+                <h4 key={post.id}>{post.title}</h4>
+            )
+        });
+
+        return posts;
     }
 
     seeListOfPosts = () => {
         console.log("this.props.allPost", this.props.allPosts);
     }
     
-    posts = this.props.allPosts.map( (post) => {
-        return(
-            <h4 key={post.id}>{post.title}</h4>
-        )
-    })
+    // posts = this.props.allPosts.map( (post) => {
+    //     return(
+    //         <h4 key={post.id}>{post.title}</h4>
+    //     )
+    // })
     
     //console.log("Home props: ", props);
     render(){
@@ -32,6 +47,7 @@ class Home extends Component {
                     <button onClick={this.getAllPosts}>CargarLista</button>
                     <button onClick={this.seeListOfPosts}>VerLista</button>
                 </div>
+                { this.getAllPosts() }
             </div>
         );
     }
@@ -58,6 +74,9 @@ const mapDispatchToProps = (dispatch) => {
             .catch((err) => {
                 console.log(err);
             })
+        },
+        clearPostsfunctionDispatch: () => {
+            dispatch({type: "CLEAR_DATA"})
         }
     }
 }
