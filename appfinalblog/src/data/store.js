@@ -13,13 +13,16 @@ const _POST = [
     }
 ]
 
-const allPostF = (state={posts: _POST}, action) => {
+const allPostF = (state={posts: []}, action) => {
     let newState = Object.assign({}, state);
     let isNewState = false;
 
     switch (action.type) {
-        case 'DATA_LOADER':
+        case 'DATA_LOADED':
+            // console.log("en allPostF state", state);
+            // console.log("en allPostF state.posts", state.posts);
             
+            newState.posts = state.posts.concat(action.data);
             isNewState = true;
             break;
 
