@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import App from './App';
-import Store from './data/store';
+import store from './data/store';
 
 ReactDOM.render(
-    <Provider store={Store}>
+    <Provider store={store}>
         <App />
     </Provider>
     , document.getElementById('root'));

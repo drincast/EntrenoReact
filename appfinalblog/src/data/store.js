@@ -1,6 +1,19 @@
 import { createStore, combineReducers } from 'redux';
 
-const allPostF = (state={postsA: [{title: "Título del post", body: "cuerpo del post"}]}, action) => {
+const _POST = [
+    {
+        id: 1,
+        title: "Titulo del post 01",
+        body: "Cuerpo del post 01"
+    },
+    {
+        id: 2,
+        title: "Titulo del post 02",
+        body: "Cuerpo del post 02"
+    }
+]
+
+const allPostF = (state={posts: _POST}, action) => {
     let newState = Object.assign({}, state);
     let isNewState = false;
 
@@ -20,12 +33,19 @@ const allPostF = (state={postsA: [{title: "Título del post", body: "cuerpo del 
     else{
         return state;
     }
+};
+
+const test = (state="2", action) =>{
+    return state;
 }
 
-const reducer = combineReducers({
+const reducer = combineReducers({    
     allPostX: allPostF
 });
 
 const store = createStore(reducer);
+
+//console.log("en store: ", reducer);
+
 
 export default store;

@@ -3,19 +3,28 @@ import logo from '../../logo.svg';
 import { connect } from 'react-redux';
 
 const Home = (props) => {
-    //const posts = props.allPosts
+    const posts = props.allPosts.map( (post) => {
+        return(
+            <h4 key={post.id}>{post.title}</h4>
+        )
+    })
+    console.log("Home props: ", props);
+    
     return(
         <div>
             <h2>Home</h2>
             <img src={logo} className="App-logo" alt="logo" />
-            { props.allPosts }
+            { posts }
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
+    console.log("mapStateToProps state: ", state);
+    console.log("mapStateToProps state.allPostsX: ", state.allPostsX);
+    
     return {
-        allPosts: state.allPostsX.postsA
+        allPosts: state.allPostX.posts
     }
 }
 
