@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ContactForm from './form';
+import SyncValidationForm from './signuofromv';
 
 const Signup = () => {
     const fForma = (datos) => {
@@ -11,10 +12,8 @@ const Signup = () => {
         console.log("fForma", fForma);
         console.log("this.fForma", this.fForma);
         console.log("this", this);
-        console.log("this.uno", this.uno);
         console.log("uno", uno);
         console.log("este es un lescomponent, por tal motivo como no es una clase el this no se usa");
-        
         uno++;
     }
 
@@ -23,7 +22,8 @@ const Signup = () => {
     return(
         <div>
             <h2>signup</h2>
-            <ContactForm onSubmit={fForma} />
+            {/*<ContactForm onSubmit={fForma} />*/}
+            <SyncValidationForm onSubmit={fForma} />
             <br />
             <button onClick={imp}>Imp Log</button>
         </div>        
