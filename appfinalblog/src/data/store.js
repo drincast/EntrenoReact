@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 const _POST = [
     {
@@ -48,7 +49,8 @@ const test = (state="2", action) =>{
 }
 
 const reducer = combineReducers({    
-    allPostX: allPostF
+    allPostX: allPostF,
+    form: formReducer
 });
 
 const store = createStore(reducer);
