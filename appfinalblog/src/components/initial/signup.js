@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ContactForm from './form';
-import SyncValidationForm from './signuofromv';
+// import ContactForm from './form';
+// import SyncValidationForm from './signuofromv';
+import SignupFormFinal from './signupformfinal';
 
 const Signup = () => {
     const fForma = (datos) => {
@@ -23,7 +24,8 @@ const Signup = () => {
         <div>
             <h2>signup</h2>
             {/*<ContactForm onSubmit={fForma} />*/}
-            <SyncValidationForm onSubmit={fForma} />
+            {/*<SyncValidationForm onSubmit={fForma} />*/}
+            <SignupFormFinal onSubmit={fForma} />
             <br />
             <button onClick={imp}>Imp Log</button>
         </div>        
