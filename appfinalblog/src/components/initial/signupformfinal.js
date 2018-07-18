@@ -38,6 +38,19 @@ const validate = values => {
         //         errors.age = 'Sorry, you must be at least 18 years old'
         //      }
     }
+
+    if (!values.passwordConfirmation) {
+        errors.passwordConfirmation = 'Required'
+    }
+    else{
+        if(values.passwordConfirmation.length < 8){
+            errors.passwordConfirmation = 'The password length it must be greater than 7 characters'
+        }
+
+        if(values.password !== values.passwordConfirmation){
+            errors.passwordConfirmation = 'The password and password confirmation must be the same'
+        }
+    }
         
     
     return errors
@@ -57,18 +70,19 @@ const renderField = ({
     input,
     label,
     type,
+    uno,
     meta: { touched, error, warning }
 }) => (
     <div>
         <label>{label}</label>
         <div>
-            <input {...input} placeholder={label} type={type} id={input.name} uno={bandera}/>
+            <input {...input} placeholder={label} type={type} id={input.name} uno={uno}/>
             {touched && 
              ((error && <span>{error}</span>) ||
              (warning && <span>{warning}</span>))}
         </div>
-        {console.log("input",Object.prototype.toString.call(input))}
-        <p>{bandera}</p> {bandera++}
+        {/* {console.log("input",Object.prototype.toString.call(input))}
+        <p>{bandera}</p> {bandera++} */}
     </div>
 )
 
@@ -78,12 +92,14 @@ const SignupFormFinal = props => {
     return (
         <form onSubmit={handleSubmit}>
             <Field name="username" type="text" id="username"
-                component={renderField} label="Username" 
+                component={renderField} label="Username" uno={bandera}
             />
+            {/* <h4>{bandera}</h4> */}
 
             <Field name="email" type="email" component={renderField} 
                 label="Email" />
             <Field name="password" type="password" component={renderField} label="Password" />
+            <Field name="passwordConfirmation" type="password" component={renderField} label="Password confirmation" />
       
             <div>
                 <button type="submit" disabled={submitting}>
