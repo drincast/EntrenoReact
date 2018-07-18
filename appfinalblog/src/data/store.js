@@ -48,8 +48,31 @@ const test = (state="2", action) =>{
     return state;
 }
 
+const passwordValid = (state={valid: false}, action) => {
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'VALID_PASSWORD':
+            newState.valid = action.val;
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if(isNewState){
+        return newState;
+    }
+    else{
+        return state;
+    }
+}
+
 const reducer = combineReducers({    
     allPostX: allPostF,
+    passwordValid: passwordValid,
     form: formReducer
 });
 

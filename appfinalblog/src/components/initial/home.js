@@ -35,10 +35,10 @@ class Home extends Component {
     //     )
     // })
     
-    //console.log("Home props: ", props);
+    //console.log("Home props: ", props)
     render(){
         //this.getAllPosts();
-
+        //{console.log("Home props: ", this.props)}
         return(
             <div>
                 <h2>Home</h2>
