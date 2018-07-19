@@ -23,7 +23,7 @@ const validate = values => {
             propsPpal.validPassword(false);
         }
         else{
-            propsPpal.validPassword(true);
+            propsPpal.validPassword(true);            
         }
     }
     
@@ -34,7 +34,7 @@ const renderField = ({
     input,
     label,
     type,
-    meta: { touched, error, warning }
+    meta: { touched, error }
 }) => (
     <div>
         <label>{label}</label>
@@ -49,7 +49,7 @@ const renderField = ({
 const LoginFormEnd = props => {
     const { handleSubmit, pristine, reset, submitting } = props
     propsPpal = props;
-    console.log('propsPpal', propsPpal);
+    //console.log('propsPpal', propsPpal);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -80,7 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         validPassword: (val) => {
-            console.log('in validPassword', val);            
+            //console.log('in validPassword', val);            
             dispatch({type: "VALID_PASSWORD", val});
         }
     }
