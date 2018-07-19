@@ -70,10 +70,37 @@ const passwordValid = (state={valid: false}, action) => {
     }
 }
 
+const userStatusReducer = (state={message: ''}, action) => {
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'USER_CREATED':
+            newState.message = 'The user has been created successfully !!';
+            isNewState = true;
+            break;
+        case 'USER_ERROR':
+            newState.message = 'Error to created the user';
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if(isNewState){
+        return newState;
+    }
+    else{
+        return state;
+    }
+}
+
 const reducer = combineReducers({    
     allPostX: allPostF,
     passwordValid: passwordValid,
-    form: formReducer
+    form: formReducer,
+    userStatus: userStatusReducer
 });
 
 const store = createStore(reducer);
