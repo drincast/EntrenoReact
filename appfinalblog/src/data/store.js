@@ -22,11 +22,11 @@ const allPostF = (state={posts: []}, action) => {
         case 'DATA_LOADED':
             // console.log("en allPostF state", state);
             // console.log("en allPostF state.posts", state.posts);
-            
+
             newState.posts = state.posts.concat(action.data);
             isNewState = true;
             break;
-        
+
         case 'CLEAR_DATA':
             newState.posts = [];
             isNewState = true;
@@ -80,7 +80,7 @@ const userStatusReducer = (state={message: ''}, action) => {
             isNewState = true;
             break;
         case 'USER_ERROR':
-            newState.message = 'Error to created the user';
+            newState.message = 'Error in the data of the user';
             isNewState = true;
             break;
 
@@ -92,11 +92,37 @@ const userStatusReducer = (state={message: ''}, action) => {
         return newState;
     }
     else{
-        return state;
+        return {}; //state; //debido a que se usa en login.js para que se limpie siempre que se cambia de pagina
     }
 }
 
-const reducer = combineReducers({    
+const session = (state={session: null}, action) => {
+  let newState = Object.assign({}, state);
+  let isNewState = false;
+
+  switch (action.type) {
+      case 'LOGIN':
+          newState.session = action.data;
+          isNewState = true;
+          break;
+      case 'LOGOUT':
+          newState.session = null;
+          isNewState = true;
+          break;
+
+      default:
+          isNewState = false;
+  }
+
+  if(isNewState){
+      return newState;
+  }
+  else{
+      return state;
+  }
+}
+
+const reducer = combineReducers({
     allPostX: allPostF,
     passwordValid: passwordValid,
     form: formReducer,

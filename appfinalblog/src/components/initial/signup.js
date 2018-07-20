@@ -10,7 +10,7 @@ import SignupFormFinal from './signupformfinal';
 const Signup = (props) => {
     const fuctionForm = (data) => {
         console.log("datos", data);
-        axios.post('https://blog-api-u.herokuapp.com/users/', 
+        axios.post('https://blog-api-u.herokuapp.com/users/',
                     {
                         user: {
                             name: data.username,
@@ -20,7 +20,7 @@ const Signup = (props) => {
                         }
                     })
                 .then(function(response){
-                    console.log(response);                    
+                    console.log(response);
                     props.successFunctionDispache();
                 })
                 .catch(function(error) {
@@ -46,11 +46,11 @@ const Signup = (props) => {
             {/*<ContactForm onSubmit={fuctionForm} />*/}
             {/*<SyncValidationForm onSubmit={fuctionForm} />*/}
             {props.message && <div><br /><h4>{props.message}</h4><br /></div>}
-            
+
             <SignupFormFinal onSubmit={fuctionForm} />
             <br />
             <button onClick={imp}>Imp Log</button>
-        </div>        
+        </div>
     )
 }
 
@@ -62,9 +62,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        successFunctionDispache: () => {            
+        successFunctionDispache: () => {
             dispatch({type: "USER_CREATED"});
-            dispatch(reset('syncValidation'));
+            dispatch(reset('syncValidation')); //limpiar el formulario funcionalidad de redux-form
         },
         errorFunctionDispache: () =>{
             dispatch({type: "USER_ERROR"});
