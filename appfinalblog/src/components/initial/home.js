@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import Pagination from '../pagination';
 import logo from '../../logo.svg';
 
 
@@ -28,13 +29,13 @@ class Home extends Component {
     seeListOfPosts = () => {
         console.log("this.props.allPost", this.props.allPosts);
     }
-    
+
     // posts = this.props.allPosts.map( (post) => {
     //     return(
     //         <h4 key={post.id}>{post.title}</h4>
     //     )
     // })
-    
+
     //console.log("Home props: ", props)
     render(){
         //this.getAllPosts();
@@ -47,6 +48,7 @@ class Home extends Component {
                     <button onClick={this.getAllPosts}>CargarLista</button>
                     <button onClick={this.seeListOfPosts}>VerLista</button>
                 </div>
+                <Pagination></Pagination>
                 { this.getAllPosts() }
             </div>
         );
@@ -56,7 +58,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     //console.log("mapStateToProps state: ", state);
     //console.log("mapStateToProps state.allPostsX: ", state.allPostsX);
-    
+
     return {
         allPosts: state.allPostX.posts
     }

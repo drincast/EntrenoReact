@@ -96,7 +96,7 @@ const userStatusReducer = (state={message: ''}, action) => {
     }
 }
 
-const session = (state={session: null}, action) => {
+const sessionReducer = (state={session: null}, action) => {
   let newState = Object.assign({}, state);
   let isNewState = false;
 
@@ -122,11 +122,37 @@ const session = (state={session: null}, action) => {
   }
 }
 
+const paginationReducer = (state={total: 1, page: 1}, action) => {
+  let newState = Object.assign({}, state);
+  let isNewState = false;
+
+  switch (action.type) {
+      case 'SET_CURRENT':
+          newState.page = action.page;
+          isNewState = true;
+          break;
+
+      default:
+          isNewState = false;
+  }
+
+  if(isNewState){
+      return newState;
+  }
+  else{
+      return state;
+  }
+}
+
+/*
+TODO: entender el porque el reducer sessionReducer sin bindiarlo en el combineReducer funciona
+*/
 const reducer = combineReducers({
     allPostX: allPostF,
     passwordValid: passwordValid,
     form: formReducer,
-    userStatus: userStatusReducer
+    userStatus: userStatusReducer,
+    pagination: paginationReducer
 });
 
 const store = createStore(reducer);
