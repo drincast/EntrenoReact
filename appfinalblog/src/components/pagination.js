@@ -3,25 +3,45 @@ import { connect } from 'react-redux';
 
 class Pagination extends Component{
   getNumberPage = (event) => {
-    console.log(event);
+    //console.log(event);
     this.props.setCurrentFunctionDispache(event.target.innerHTML);
   }
 
   pages = () => {
-    let posts = 4;
+    let posts = 60;
     let total = Math.ceil(posts/3);
     let init = 1;
     let end = 10;
-
     let list = [];
+
+    console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
 
     if(total <= 10){
       end = total;
     }
+    else if(this.props.pagination.page >= total-4)
+    //inicio
+    {
+      init = total - 9;
+      end = total;
+    }
+    //final
+    else if(this.props.pagination.page - 4 <= 0){
+      init = 1;
+      end = 10;
+    }
+    //lo de mas
+    else{
+      init = this.props.pagination.page - 4;
+      end = parseInt(this.props.pagination.page) + 5;
+    }
+
+    console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
 
     {/*<th key={i} onClick={(e) => {this.getNumberPage(e)}}>*/}
     let bar = () => {
-      for(let i = init; i<=end; i++){
+      console.log(init, end);
+      for(let i = init; i <= end; i++){
         list = list.concat(
           <th key={i} onClick={this.getNumberPage}>
             {i}
@@ -53,7 +73,7 @@ class Pagination extends Component{
         </h4>
         {this.pages()}
         <br /><br />
-        <div>actual: {this.props.page.page}</div>
+        <div>actual: {this.props.pagination.page}</div>
       </div>
     )
   }
@@ -61,7 +81,7 @@ class Pagination extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        page: state.pagination
+        pagination: state.pagination
     }
 }
 
