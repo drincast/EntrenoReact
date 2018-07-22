@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Pagination extends Component{
+  componentDidMount(){
+    this.props.totalPostsFunctionDispache();
+  }
+
   getNumberPage = (event) => {
     //console.log(event);
     this.props.setCurrentFunctionDispache(event.target.innerHTML);
   }
 
   pages = () => {
-    let posts = 60;
+    let posts = this.props.pagination.total;
     let total = Math.ceil(posts/3);
     let init = 1;
     let end = 10;
@@ -85,15 +90,24 @@ const mapStateToProps = (state) => {
     }
 }
 
+
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCurrentFunctionDispache: (data) => {
-            dispatch({type: "SET_CURRENT", page: data});
-            // dispatch(reset('syncValidation'));
-        },
-        errorLoginFunctionDispache: () =>{
-            dispatch({type: "USER_ERROR"});
-        }
+      totalPostsFunctionDispache: () =>{
+        axios.get('https://blog-api-u.herokuapp.com/v1/totalposts')
+        .then((response) => {
+          console.log(response);
+          dispatch({type: "SET_TOTAL", total: parseInt(response.data)});
+        })
+        .catch(function(error){
+          console.log(error);
+        });
+      },
+      setCurrentFunctionDispache: (data) => {
+        dispatch({type: "SET_CURRENT", page: data});
+        // dispatch(reset('syncValidation'));
+      }
     }
 }
 

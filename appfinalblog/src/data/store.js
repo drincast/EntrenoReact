@@ -131,6 +131,11 @@ const paginationReducer = (state={total: 1, page: 1}, action) => {
           newState.page = action.page;
           isNewState = true;
           break;
+      case 'SET_TOTAL':
+          newState.total = action.total;
+          console.log(action.total);
+          isNewState = true;
+          break;
 
       default:
           isNewState = false;
@@ -152,7 +157,8 @@ const reducer = combineReducers({
     passwordValid: passwordValid,
     form: formReducer,
     userStatus: userStatusReducer,
-    pagination: paginationReducer
+    pagination: paginationReducer,
+    session: sessionReducer
 });
 
 const store = createStore(reducer);

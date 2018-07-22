@@ -1,6 +1,8 @@
 //import React, { Component } from 'react';
 import React from 'react';
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Home from './components/initial/home';
 import Login from './components/initial/login';
 import Signup from './components/initial/signup';
@@ -8,21 +10,22 @@ import Signup from './components/initial/signup';
 
 import './App.css';
 
-const Header = () => {
+const Header = (props) => {
   return(
     <nav>
       <Link to='/'>Home</Link>
       <Link to='/signup'>Signup</Link>
-      <Link to='/login'>Login</Link>
+      {/*<Link to='/login'>Login</Link>*/}
+      {props.propsH.session === null ? <Link to='/login'>Login</Link> : <a onClick={props.propsH.logoutFunctionDispache}>Logout</a>}
     </nav>
   )
 }
 
-const App = () => {
+const App = (props) => {
   return(
     <Router>
       <div>
-        <Header/>
+        <Header propsH={props}/>
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
@@ -48,4 +51,22 @@ const App = () => {
 //   }
 // }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+    //console.log('valor de session', state.session); //OK
+    return {
+        session: state.session.session,
+        own: ownProps
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        logoutFunctionDispache: () => {
+            dispatch({type: "LOGOUT"});
+            console.log(ownProps);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+//export default App;

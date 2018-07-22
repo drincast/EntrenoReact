@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 import LoginFormEnd from './loginformend';
 
 const Login = (props) =>{
+    const funcProps = () => {
+        console.log(props.own);
+    }
+
     const formFuction = (data) => {
         let valParse =  CRYPTO.enc.Utf16.parse(data.password);
         let valstringify =  CRYPTO.enc.Utf16.stringify(data.password);
@@ -36,6 +40,7 @@ const Login = (props) =>{
         .then((response)=>{
           console.log(response);
           props.successLoginFunctionDispache(response.data);
+          props.history.push('/');
         })
         .catch((error) => {
           console.log(error);
@@ -45,6 +50,7 @@ const Login = (props) =>{
 
     return(
         <div>
+            {funcProps()}
             <h2>Login</h2>
             {props.message && <div><br /><h4>{props.message}</h4><br /></div>}
             <LoginFormEnd onSubmit={formFuction} nuevo="nuevo"></LoginFormEnd>
@@ -54,9 +60,10 @@ const Login = (props) =>{
 
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        message: state.userStatus.message
+        message: state.userStatus.message,
+        own: ownProps
     }
 }
 
