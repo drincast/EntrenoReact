@@ -6,19 +6,36 @@ import { connect } from 'react-redux';
 import Home from './components/initial/home';
 import Login from './components/initial/login';
 import Signup from './components/initial/signup';
+import AHeader from './auth/aheader';
 
 
 import './App.css';
 
 const Header = (props) => {
-  return(
+  if(props.propsH.session === null){
+    return(
+      <nav>
+        <Link to='/'>Home</Link>
+        <Link to='/signup'>Signup</Link>
+        <Link to='/login'>Login</Link>
+    </nav>
+    );
+  }
+  else{
+    return(
+      <AHeader></AHeader>
+    );
+  }
+
+
+  {/*return(
     <nav>
       <Link to='/'>Home</Link>
       <Link to='/signup'>Signup</Link>
       {/*<Link to='/login'>Login</Link>*/}
-      {props.propsH.session === null ? <Link to='/login'>Login</Link> : <a onClick={props.propsH.logoutFunctionDispache}>Logout</a>}
+      {/*props.propsH.session === null ? <Link to='/login'>Login</Link> : <a onClick={props.propsH.logoutFunctionDispache}>Logout</a>}
     </nav>
-  )
+  )*/}
 }
 
 const App = (props) => {
