@@ -7,6 +7,7 @@ import Home from './components/initial/home';
 import Login from './components/initial/login';
 import Signup from './components/initial/signup';
 import AHeader from './auth/aheader';
+import Post from './components/initial/post';
 
 
 import './App.css';
@@ -46,6 +47,7 @@ const App = (props) => {
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
+        <Route exact path="/post/:id" component={Post} />
         <h2>Dentro de App</h2>
       </div>
     </Router>
@@ -80,7 +82,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         logoutFunctionDispache: () => {
             dispatch({type: "LOGOUT"});
-            console.log(ownProps);
+            {/*console.log(ownProps);*/}
         }
     }
 }

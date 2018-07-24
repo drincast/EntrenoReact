@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import Pagination from '../pagination';
+import { Link } from 'react-router-dom';
+
 import logo from '../../logo.svg';
 
 
@@ -19,7 +21,9 @@ class Home extends Component {
         //this.props.getAllPostFunctionDispatch();
         const posts = this.props.allPosts.map( (post) => {
             return(
-                <h4 key={post.id}>{post.title}</h4>
+                <Link to={`/post/${post.id}`} key={post.id}>
+                    <h4 key={post.id}>{post.title}</h4>
+                </Link>
             )
         });
 
