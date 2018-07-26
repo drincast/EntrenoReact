@@ -133,7 +133,7 @@ const paginationReducer = (state={total: 1, page: 1}, action) => {
           break;
       case 'SET_TOTAL':
           newState.total = action.total;
-          console.log(action.total);
+          //console.log(action.total);
           isNewState = true;
           break;
 
@@ -149,6 +149,56 @@ const paginationReducer = (state={total: 1, page: 1}, action) => {
   }
 }
 
+const showPostReducer = (state={post: null}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'GET_POST':
+            newState.post = action.post;
+            isNewState = true;
+            break;
+        case 'CLEAR_POST':
+            newState.post = {};
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        return state;
+    }    
+}
+
+const postErrorReducer = (state={message: null}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'ERROR_GET_POST':
+            newState.message = "Error al cargar el post";
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        // TODO: Mejorar no debe alterar el state
+        state.message = null;
+        return state;
+    }    
+}
+
 /*
 TODO: entender el porque el reducer sessionReducer sin bindiarlo en el combineReducer funciona
 */
@@ -158,7 +208,9 @@ const reducer = combineReducers({
     form: formReducer,
     userStatus: userStatusReducer,
     pagination: paginationReducer,
-    session: sessionReducer
+    session: sessionReducer,
+    post: showPostReducer,
+    postError: postErrorReducer
 });
 
 const store = createStore(reducer);

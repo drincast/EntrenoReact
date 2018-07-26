@@ -19,7 +19,7 @@ class Pagination extends Component{
     let end = 10;
     let list = [];
 
-    console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
+    //console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
 
     if(total <= 10){
       end = total;
@@ -41,11 +41,11 @@ class Pagination extends Component{
       end = parseInt(this.props.pagination.page) + 5;
     }
 
-    console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
+    //console.log('val(init, end, total, page)', init, end, total, this.props.pagination.page);
 
     {/*<th key={i} onClick={(e) => {this.getNumberPage(e)}}>*/}
     let bar = () => {
-      console.log(init, end);
+      //console.log(init, end);
       for(let i = init; i <= end; i++){
         list = list.concat(
           <th key={i} onClick={this.getNumberPage}>
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
       totalPostsFunctionDispache: () =>{
         axios.get('https://blog-api-u.herokuapp.com/v1/totalposts')
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           dispatch({type: "SET_TOTAL", total: parseInt(response.data)});
         })
         .catch(function(error){

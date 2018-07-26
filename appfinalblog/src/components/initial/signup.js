@@ -9,7 +9,7 @@ import SignupFormFinal from './signupformfinal';
 
 const Signup = (props) => {
     const fuctionForm = (data) => {
-        console.log("datos", data);
+        //console.log("datos", data);
         axios.post('https://blog-api-u.herokuapp.com/users/',
                     {
                         user: {
@@ -30,11 +30,11 @@ const Signup = (props) => {
     }
 
     const imp = () => {
-        console.log("fuctionForm", fuctionForm);
-        console.log("this.fuctionForm", this.fuctionForm);
-        console.log("this", this);
-        console.log("uno", uno);
-        console.log("este es un lescomponent, por tal motivo como no es una clase el this no se usa");
+        // console.log("fuctionForm", fuctionForm);
+        // console.log("this.fuctionForm", this.fuctionForm);
+        // console.log("this", this);
+        // console.log("uno", uno);
+        // console.log("este es un lescomponent, por tal motivo como no es una clase el this no se usa");
         uno++;
     }
 

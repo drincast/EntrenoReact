@@ -3,40 +3,54 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 class Post extends Component{
-    componentDidMount(){
-        this.props.getPostDispache();
+    componentWillMount(){                
+        this.props.clearPostDispache();
+   }
+
+    componentDidMount(){                
+         this.props.getPostDispache();
     }
 
     render(){
         return(
             <div>
-                <h2>Post</h2>
+                <h2>{this.props.post !== null ? this.props.post.title : null}</h2>
+                <h4>                    
+                    {this.props.post !== null ? this.props.post.body : null}
+                </h4>
+                <h3>{this.props.error.message}</h3>
+                <div>hola</div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    //console.log('valor de session', state.session); //OK
+const mapStateToProps = (state, ownProps) => {    
     return {
-        session: state.session.session,
-        own: ownProps
+        post: state.post.post,
+        own: ownProps,
+        error: state.postError
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getPostDispache: () => {            
-            console.log(ownProps.match.params.id);
+            //console.log(ownProps.match.params.id);
             let idPost = parseInt(ownProps.match.params.id);
             axios.get(`https://blog-api-u.herokuapp.com/v1/posts/${idPost}`)
-            .then((response) => {
-                console.log(response);                
+            .then((response) => {            
+                //console.log(response.data);
+                dispatch({type: "GET_POST", post: response.data});
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
+                dispatch({type: 'ERROR_GET_POST'})
             })
             //dispatch({type: "LOGOUT"});
+        },
+        clearPostDispache: () => {
+            dispatch({type: "CLEAR_POST"});
         }
     }
 }
