@@ -172,7 +172,7 @@ const showPostReducer = (state={post: null}, action) =>{
     }
     else {
         return state;
-    }    
+    }
 }
 
 const postErrorReducer = (state={message: null}, action) =>{
@@ -196,11 +196,11 @@ const postErrorReducer = (state={message: null}, action) =>{
         // TODO: Mejorar no debe alterar el state
         state.message = null;
         return state;
-    }    
+    }
 }
 
 /*
-TODO: entender el porque el reducer sessionReducer sin bindiarlo en el combineReducer funciona
+TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
 */
 const reducer = combineReducers({
     allPostX: allPostF,

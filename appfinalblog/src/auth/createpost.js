@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import CreatePostForm from './createpostform';
 
-const AHeader = (props) => {
+const CreatePost = (props) => {
+    const handleForm = (data) => {
+        console.log(data);
+    }
+
     return(
         <div>
-            <div>AUT</div>
-            <Link to='/'>Home</Link>
-            <Link to={`/${props.session.id}/posts`}>Mis post</Link>
-            <Link to='/' onClick={props.logoutFunctionDispache}>Logout</Link>
+            <h2>Crear Post</h2>
+            <CreatePostForm onSubmit={handleForm}></CreatePostForm>
         </div>
     )
 }
@@ -31,5 +33,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AHeader);
-//export default AHeader
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

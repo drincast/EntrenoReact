@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
-const AHeader = (props) => {
-    return(
-        <div>
-            <div>AUT</div>
-            <Link to='/'>Home</Link>
-            <Link to={`/${props.session.id}/posts`}>Mis post</Link>
-            <Link to='/' onClick={props.logoutFunctionDispache}>Logout</Link>
-        </div>
-    )
+class MyPost extends Component {
+    render() {
+        return(
+            <div>
+                <h2>Mis Posts</h2>
+                <Link to={`/${this.props.session.id}/create`}>Crear Post</Link>
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -31,5 +30,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AHeader);
-//export default AHeader
+export default connect(mapStateToProps, mapDispatchToProps)(MyPost);

@@ -8,6 +8,8 @@ import Login from './components/initial/login';
 import Signup from './components/initial/signup';
 import AHeader from './auth/aheader';
 import Post from './components/initial/post';
+import MyPosts from './auth/myposts';
+import CreatePost from './auth/createpost';
 
 
 import './App.css';
@@ -48,6 +50,8 @@ const App = (props) => {
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
         <Route exact path="/post/:id" component={Post} />
+        <Route path="/:user/posts" component={MyPosts} />
+        <Route path="/:user/create" component={CreatePost} />
         <h2>Dentro de App</h2>
       </div>
     </Router>
