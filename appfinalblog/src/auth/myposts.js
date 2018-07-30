@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class MyPost extends Component {
+    componentDidMount(){
+        let data = {
+            userId: this.props.session.id,
+            token: this.props.session.jwt
+        }
+        //console.log("componentDidMount", data);        
+        this.props.getMyPostDispache(data);
+    }
+
     render() {
         return(
             <div>
@@ -23,9 +33,17 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        logoutFunctionDispache: () => {
-            dispatch({type: "LOGOUT"});
-            console.log(ownProps);
+        getMyPostDispache: (data) => {
+            // dispatch({type: "LOGOUT"});
+            // console.log(ownProps);
+            let config = {'Authorization': 'Bearer' + data.token};
+            axios.get(`https://blog-api-u.herokuapp.com/users/${data.userId}/posts`, {headers: config})
+            .then((response) => {
+                console.log(response);                
+            })
+            .catch((error) => {
+                console.log(error);                
+            })
         }
     }
 }
