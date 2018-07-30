@@ -199,6 +199,35 @@ const postErrorReducer = (state={message: null}, action) =>{
     }
 }
 
+const postCreateReducer = (state={message: null}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'CREATE_POST_OK':
+            newState.message = "El post se creo con exito";
+            isNewState = true;
+            break;
+        
+        case 'CREATE_POST_ERROR':
+            newState.message = "Error al crear el post";
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        // TODO: Mejorar no debe alterar el state
+        state.message = null;
+        return state;
+    }
+}
+
 /*
 TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
 */
@@ -210,7 +239,8 @@ const reducer = combineReducers({
     pagination: paginationReducer,
     session: sessionReducer,
     post: showPostReducer,
-    postError: postErrorReducer
+    postError: postErrorReducer,
+    postCreateMesssage: postCreateReducer
 });
 
 const store = createStore(reducer);
