@@ -228,6 +228,57 @@ const postCreateMessageReducer = (state={message: null}, action) =>{
     }
 }
 
+const listUserPostReducer = (state={data: []}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'USER_LIST_POSTS':
+            newState.data = action.data;
+            isNewState = true;
+            break;
+        case 'CLEAR_USER_LIST_POSTS':
+            newState.data = [];
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        return state;
+    }
+}
+
+const errorListUserPostReducer = (state={message: null}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'ERROR_USER_LIST_POSTS':
+            newState.message = "No existen posts, no hubo un error al cargalos post";
+            isNewState = true;
+            break;
+
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        // TODO: Mejorar no debe alterar el state
+        state.message = null;
+        return state;
+    }
+}
+
+
 /*
 TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
 */
@@ -240,7 +291,9 @@ const reducer = combineReducers({
     session: sessionReducer,
     post: showPostReducer,
     postError: postErrorReducer,
-    postCreateMesssage: postCreateMessageReducer
+    postCreateMesssage: postCreateMessageReducer,
+    listUserPosts: listUserPostReducer,
+    errorListUserPosts: errorListUserPostReducer
 });
 
 const store = createStore(reducer);
