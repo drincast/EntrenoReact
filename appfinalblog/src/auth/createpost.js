@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { reset } from 'redux-form';
 
 import CreatePostForm from './createpostform';
 
@@ -21,7 +22,7 @@ const CreatePost = (props) => {
         )
         .then((response) => {
             console.log(response);
-            props.createPostOKDispache();
+            props.createPostOKDispache();            
         })
         .catch((error) =>{
             console.log(error);
@@ -50,6 +51,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createPostOKDispache: () => {
+            dispatch(reset('CreatePostForm'));
             dispatch({type: "CREATE_POST_OK"});
         },
         createPostERRORDispache: () => {

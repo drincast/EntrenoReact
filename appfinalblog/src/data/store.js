@@ -199,7 +199,7 @@ const postErrorReducer = (state={message: null}, action) =>{
     }
 }
 
-const postCreateReducer = (state={message: null}, action) =>{
+const postCreateMessageReducer = (state={message: null}, action) =>{
     let newState = Object.assign({}, state);
     let isNewState = false;
 
@@ -240,7 +240,7 @@ const reducer = combineReducers({
     session: sessionReducer,
     post: showPostReducer,
     postError: postErrorReducer,
-    postCreateMesssage: postCreateReducer
+    postCreateMesssage: postCreateMessageReducer
 });
 
 const store = createStore(reducer);

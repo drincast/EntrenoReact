@@ -10,14 +10,14 @@ const validate = values => {
     else if (values.title.length < 10) {
         errors.title = 'Must be 10 characters or more';
     }
-    else if (values.title.length > 20) {
+    else if (values.title.length > 50) {
         errors.title = 'Must be 50 characters or less';
     }
 
     if (!values.body) {
         errors.body = 'Required';
     }
-    else if (values.body.length < 20){
+    else if (values.body.length < 50){
         errors.body = 'Must be 50 characters or more';
     }
     else if (values.body.length > 200){
