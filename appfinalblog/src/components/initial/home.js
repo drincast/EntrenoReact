@@ -20,11 +20,20 @@ class Home extends Component {
     getAllPosts = () => {
         //this.props.getAllPostFunctionDispatch();
         const posts = this.props.allPosts.map( (post) => {
-            return(
-                <Link to={`/post/${post.id}`} key={post.id}>
-                    <h4 key={post.id}>{post.title}</h4>
-                </Link>
-            )
+            if((this.props.session) && (this.props.session.id = post.user_id)){
+                return(
+                    <Link to={`/${post.user_id}/post/${post.id}`} key={post.id}>
+                        <h4 key={post.id}>{post.title}</h4>
+                    </Link>
+                );
+            }
+            else{
+                return(
+                    <Link to={`/post/${post.id}`} key={post.id}>
+                        <h4 key={post.id}>{post.title}</h4>
+                    </Link>
+                );
+            }            
         });
 
         return posts;
@@ -64,7 +73,8 @@ const mapStateToProps = (state) => {
     //console.log("mapStateToProps state.allPostsX: ", state.allPostsX);
 
     return {
-        allPosts: state.allPostX.posts
+        allPosts: state.allPostX.posts,
+        session: state.session.session
     }
 }
 

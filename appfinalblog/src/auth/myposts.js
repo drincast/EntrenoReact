@@ -28,7 +28,9 @@ class MyPost extends Component {
                 misPosts = this.props.listPosts.posts.map(
                     (p) => {
                         return(
-                            <Link to="#" key={p.id}>{p.title}</Link>
+                            <Link to={`/${p.user_id}/post/${p.id}`} key={p.id}>
+                                <p>{p.title}</p>
+                            </Link>
                         )
                     }
                 )

@@ -52,6 +52,7 @@ const App = (props) => {
         <Route exact path="/post/:id" component={Post} />
         <Route path="/:user/posts" component={MyPosts} />
         <Route path="/:user/create" component={CreatePost} />
+        <Route path="/:user/post/:id" component={Post} />
         <h2>Dentro de App</h2>
       </div>
     </Router>
