@@ -10,11 +10,19 @@ import logo from '../../logo.svg';
 
 class Home extends Component {
     componentDidMount(){
-        this.props.getAllPostFunctionDispatch();
+        this.props.getAllPostFunctionDispatch(this.props.pagination.page);
     }
 
     componentWillUnmount(){
         this.props.clearPostsfunctionDispatch();
+    }
+
+    componentWillReceiveProps(next_props){
+        if(next_props.pagination.page !== this.props.pagination.page){
+            // console.log("next", next_props.pagination.page);
+            // console.log("actual", this.props.pagination.page);
+            this.props.getAllPostFunctionDispatch(next_props.pagination.page);
+        }
     }
 
     getAllPosts = () => {
@@ -33,7 +41,7 @@ class Home extends Component {
                         <h4 key={post.id}>{post.title}</h4>
                     </Link>
                 );
-            }            
+            }
         });
 
         return posts;
@@ -74,15 +82,16 @@ const mapStateToProps = (state) => {
 
     return {
         allPosts: state.allPostX.posts,
-        session: state.session.session
+        session: state.session.session,
+        pagination: state.pagination
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllPostFunctionDispatch: () => {
+        getAllPostFunctionDispatch: (page) => {
             //dispatch(actionCreator)
-            axios.get('https://blog-api-u.herokuapp.com/v1/posts')
+            axios.get(`https://blog-api-u.herokuapp.com/v1/posts?page=${page}`)
             .then((response) => {
                 //console.log(response);
                 dispatch({type: "DATA_LOADED", data: response.data})

@@ -23,7 +23,9 @@ const allPostF = (state={posts: []}, action) => {
             // console.log("en allPostF state", state);
             // console.log("en allPostF state.posts", state.posts);
 
-            newState.posts = state.posts.concat(action.data);
+            //newState.posts = state.posts.concat(action.data);
+            newState.posts = action.data;
+            console.log(newState.posts);
             isNewState = true;
             break;
 
@@ -208,7 +210,7 @@ const postCreateMessageReducer = (state={message: null}, action) =>{
             newState.message = "El post se creo con exito";
             isNewState = true;
             break;
-        
+
         case 'CREATE_POST_ERROR':
             newState.message = "Error al crear el post";
             isNewState = true;
