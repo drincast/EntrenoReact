@@ -25,7 +25,7 @@ const allPostF = (state={posts: []}, action) => {
 
             //newState.posts = state.posts.concat(action.data);
             newState.posts = action.data;
-            console.log(newState.posts);
+            //console.log(newState.posts);
             isNewState = true;
             break;
 
@@ -280,6 +280,26 @@ const errorListUserPostReducer = (state={message: null}, action) =>{
     }
 }
 
+const editPostReducer = (state={post: null}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'GET_POST':
+            newState.post = action.post;
+            isNewState = true;
+            break;
+        default:
+            isNewState = false;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        return state;
+    }
+}
 
 /*
 TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
@@ -295,7 +315,8 @@ const reducer = combineReducers({
     postError: postErrorReducer,
     postCreateMesssage: postCreateMessageReducer,
     listUserPosts: listUserPostReducer,
-    errorListUserPosts: errorListUserPostReducer
+    errorListUserPosts: errorListUserPostReducer,
+    editPosts: editPostReducer
 });
 
 const store = createStore(reducer);

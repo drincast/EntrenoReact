@@ -10,6 +10,7 @@ import AHeader from './auth/aheader';
 import Post from './components/initial/post';
 import MyPosts from './auth/myposts';
 import CreatePost from './auth/createpost';
+import EditPost from './auth/editpost';
 
 
 import './App.css';
@@ -52,7 +53,8 @@ const App = (props) => {
         <Route exact path="/post/:id" component={Post} />
         <Route path="/:user/posts" component={MyPosts} />
         <Route path="/:user/create" component={CreatePost} />
-        <Route path="/:user/post/:id" component={Post} />
+        <Route exact path="/:user/post/:id" component={Post} />
+        <Route path="/:user/post/:id/edit" component={EditPost} />
         <h2>Dentro de App</h2>
       </div>
     </Router>

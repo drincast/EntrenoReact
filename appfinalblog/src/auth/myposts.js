@@ -9,7 +9,7 @@ class MyPost extends Component {
             userId: this.props.session.id,
             token: this.props.session.jwt
         }
-        //console.log("componentWillMount", data);        
+        //console.log("componentWillMount", data);
         this.props.getMyPostDispache(data);
     }
 
@@ -20,7 +20,7 @@ class MyPost extends Component {
     impPosts = () => {
         var misPosts = null;
 
-        console.log('impPosts', this.props.listPosts);
+        //console.log('impPosts', this.props.listPosts);
 
         //TODO: se ve la necesidad de validar antes que el objeto sea
         if(this.props.listPosts.length !== 0 ){
@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             let config = {'Authorization': 'Bearer' + data.token};
             axios.get(`https://blog-api-u.herokuapp.com/users/${data.userId}/posts`, {headers: config})
             .then((response) => {
-                console.log('getMyPostDispache', response);
+                //console.log('getMyPostDispache', response);
                 dispatch({type: 'USER_LIST_POSTS', data: response.data});
             })
             .catch((error) => {

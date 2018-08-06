@@ -7,9 +7,9 @@ import CreatePostForm from './createpostform';
 
 const CreatePost = (props) => {
     const handleForm = (data) => {
-        console.log(data);
+        //console.log(data);
         let config = {'Authorization': 'Bearer' + props.session.jwt}
-        axios.post('https://blog-api-u.herokuapp.com/v1/posts/', 
+        axios.post('https://blog-api-u.herokuapp.com/v1/posts/',
             {
                 post:{
                     title: data.title,
@@ -21,8 +21,8 @@ const CreatePost = (props) => {
             }
         )
         .then((response) => {
-            console.log(response);
-            props.createPostOKDispache();            
+            //console.log(response);
+            props.createPostOKDispache();
         })
         .catch((error) =>{
             console.log(error);

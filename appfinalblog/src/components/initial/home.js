@@ -28,7 +28,7 @@ class Home extends Component {
     getAllPosts = () => {
         //this.props.getAllPostFunctionDispatch();
         const posts = this.props.allPosts.map( (post) => {
-            if((this.props.session) && (this.props.session.id = post.user_id)){
+            if((this.props.session) && (this.props.session.id === post.user_id)){
                 return(
                     <Link to={`/${post.user_id}/post/${post.id}`} key={post.id}>
                         <h4 key={post.id}>{post.title}</h4>

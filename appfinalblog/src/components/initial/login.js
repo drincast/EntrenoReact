@@ -8,7 +8,7 @@ import LoginFormEnd from './loginformend';
 
 const Login = (props) =>{
     const funcProps = () => {
-        console.log(props.own);
+        //console.log(props.own);
     }
 
     const formFuction = (data) => {
