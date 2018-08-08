@@ -14,7 +14,7 @@ class Post extends Component{
 
     postEdit = () => {
         try {
-            if(this.props.ownProps.match.params.user !== undefined){
+            if(this.props.ownProps.match.params.user !== undefined && this.props.error.message === null){
                 //console.log(`post creado por el usuario ${this.props.ownProps.match.params.user}`);
                 console.log(this.props.post);
                 //TODO: investigar y mejorar el porque se realiza un llamado con post vacio, para quitar esta verificación

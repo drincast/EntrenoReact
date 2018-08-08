@@ -289,6 +289,10 @@ const editPostReducer = (state={post: null}, action) =>{
             newState.post = action.post;
             isNewState = true;
             break;
+        case 'CLEAR_EDIT_POST':
+            newState.post = {};
+            isNewState = true;
+            break;
         default:
             isNewState = false;
     }

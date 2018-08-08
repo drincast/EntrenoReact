@@ -9,6 +9,8 @@ class EditPost extends Component {
     }
 
     componentWillUnmount(){
+        this.props.clearEditPostDispache();
+        console.log(this.props);        
     }
 
     handleData = (data) => {
@@ -38,19 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        getMyPostDispache: (data) => {
-            let config = {'Authorization': 'Bearer' + data.token};
-            axios.get(`https://blog-api-u.herokuapp.com/users/${data.userId}/posts`, {headers: config})
-            .then((response) => {;
-                dispatch({type: 'USER_LIST_POSTS', data: response.data});
-            })
-            .catch((error) => {
-                console.log(error);
-                dispatch({type: 'ERROR_USER_LIST_POSTS'});
-            });
-        },
-        clearMyPostsWhenExit: () =>{
-            dispatch({type: 'CLEAR_USER_LIST_POSTS'});
+        clearEditPostDispache: () =>{
+            dispatch({type: 'CLEAR_EDIT_POST'});
         }
 
     }
