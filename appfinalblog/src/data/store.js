@@ -305,6 +305,32 @@ const editPostReducer = (state={post: null}, action) =>{
     }
 }
 
+const editPostMessageReducer = (state={message: ''}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'EDIT_POST_OK':
+            newState.message = 'Se modifico correctamente';
+            isNewState = true;
+            break;
+        case 'EDIT_POST_ERROR':
+            newState.message = 'Ocurrio un error en la edición';
+            isNewState = true;
+            break;
+        default:
+            newState.message = '';
+            isNewState = true;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        return state;
+    }
+}
+
 /*
 TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
 */
@@ -320,7 +346,8 @@ const reducer = combineReducers({
     postCreateMesssage: postCreateMessageReducer,
     listUserPosts: listUserPostReducer,
     errorListUserPosts: errorListUserPostReducer,
-    editPosts: editPostReducer
+    editPost: editPostReducer,
+    editPostMessage: editPostMessageReducer
 });
 
 const store = createStore(reducer);

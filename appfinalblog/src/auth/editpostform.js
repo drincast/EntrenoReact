@@ -100,8 +100,8 @@ EditPostForm = reduxForm({
 EditPostForm = connect (
     (state) => ({
         initialValues: {
-            title: state.editPosts.post.title,
-            body: state.editPosts.post.body
+            title: state.editPost.post.title,
+            body: state.editPost.post.body
         }
     })
 )(EditPostForm);
