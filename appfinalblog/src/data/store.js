@@ -331,6 +331,32 @@ const editPostMessageReducer = (state={message: ''}, action) =>{
     }
 }
 
+const deletePostMessageReducer = (state={message: ''}, action) =>{
+    let newState = Object.assign({}, state);
+    let isNewState = false;
+
+    switch (action.type) {
+        case 'DELETED_POST':
+            newState.message = 'Se elimino el post';
+            isNewState = true;
+            break;
+        case 'ERROR_DELETED_POST':
+            newState.message = 'Ocurrio un error en la eliminación';
+            isNewState = true;
+            break;
+        default:
+            newState.message = '';
+            isNewState = true;
+    }
+
+    if (isNewState) {
+        return newState;
+    }
+    else {
+        return state;
+    }
+}
+
 /*
 TODO: entender el porque el reducer sessionReducer sin enlazarlo en el combineReducer funciona
 */
@@ -347,7 +373,8 @@ const reducer = combineReducers({
     listUserPosts: listUserPostReducer,
     errorListUserPosts: errorListUserPostReducer,
     editPost: editPostReducer,
-    editPostMessage: editPostMessageReducer
+    editPostMessage: editPostMessageReducer,
+    deletePostMessage: deletePostMessageReducer
 });
 
 const store = createStore(reducer);
