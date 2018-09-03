@@ -1,0 +1,4 @@
+realizado en 2018
+-tiene buen contenido
+-uso de firebase
+-mbox y redux
