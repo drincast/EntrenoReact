@@ -21,7 +21,7 @@ const Product = ({product, products, shoppingCart, addProduct}) => {
 
     //quita del carrito
     const quitProductToCart = (id) => {
-        
+        const products = shoppingCart.filter(item => item.id !== id)
     }
 
     return (
