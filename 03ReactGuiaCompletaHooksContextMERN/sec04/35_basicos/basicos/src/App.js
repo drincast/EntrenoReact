@@ -4,12 +4,14 @@ import Header from './components/Header';
 import Footer from "./components/Footer";
 
 function App() {
-  return (
-    <Fragment>
-      <Header />
-      <Footer />
-    </Fragment>
-  );
+    const year = new Date().getFullYear();
+
+    return (
+        <Fragment>
+            <Header title={"Tienda Virtual"} />
+            <Footer year={year}/>
+        </Fragment>
+    );
 }
 
 export default App;

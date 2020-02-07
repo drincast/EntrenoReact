@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Header() {
+function Header(props) {
     return(
-        <h1>Desde el header</h1>
+        <h1>{props.title}</h1>
     );
 }
 
