@@ -21,7 +21,9 @@ const Product = ({product, products, shoppingCart, addProduct}) => {
 
     //quita del carrito
     const quitProductToCart = (id) => {
-        const products = shoppingCart.filter(item => item.id !== id)
+        const _products = shoppingCart.filter(item => item.id !== id);
+
+        addProduct(_products);
     }
 
     return (
@@ -29,12 +31,12 @@ const Product = ({product, products, shoppingCart, addProduct}) => {
             <h3>{name}</h3>
             <p>$ {price}</p>
             {
-                addProduct ?
+                products ?
                     <button type="button"
                         onClick={() => addProductToCart(name, id) }>Agregar</button>
                 :
                     <button type="button"
-                        onClick={() => (".") }>Quitar</button>
+                        onClick={() => quitProductToCart(id) }>Quitar</button>
             }
             
         </Fragment>

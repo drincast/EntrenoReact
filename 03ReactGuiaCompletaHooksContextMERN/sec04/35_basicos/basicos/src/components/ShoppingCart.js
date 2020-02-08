@@ -3,7 +3,7 @@ import Product from './Product';
 
 import './ShoppingCart.css';
 
-const ShoppingCart = ({shoppingCart}) => (
+const ShoppingCart = ({shoppingCart, addProduct}) => (
     <Fragment>
         <div className="shoppingCart">
             <h2>Carrito compras</h2>
@@ -14,6 +14,7 @@ const ShoppingCart = ({shoppingCart}) => (
                             key={item.id}
                             product={item}
                             shoppingCart={shoppingCart}
+                            addProduct={addProduct}
                         />
                     ))
                 :

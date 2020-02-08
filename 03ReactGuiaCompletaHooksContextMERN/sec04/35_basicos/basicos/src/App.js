@@ -47,7 +47,8 @@ function App() {
                     addProduct={addProductToShoppingCart}
                     products={sttProducts}/>
             ))}
-            <ShoppingCart shoppingCart={sttShoppingCart}/>
+            <ShoppingCart shoppingCart={sttShoppingCart}
+                addProduct={addProductToShoppingCart} />
             <Footer year={year}/>
         </Fragment>
     );
