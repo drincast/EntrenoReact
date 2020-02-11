@@ -1,5 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import uuid from 'uuid';
+//import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
 
 const Form = ({createAppointment}) => {
     //Crear state de Citas
@@ -148,4 +150,7 @@ const Form = ({createAppointment}) => {
     );
 }
 
+Form.protoType = {
+    createAppointment: PropTypes.func.isRequired
+}
 export default Form;
