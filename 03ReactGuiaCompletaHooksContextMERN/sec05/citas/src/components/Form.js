@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import uuid from 'uuid';
 
-const Form = () => {
+const Form = ({createAppointment}) => {
     //Crear state de Citas
     const [appointment, updateAppointment] = useState({
         txtId: null,
@@ -14,38 +14,36 @@ const Form = () => {
 
     const [error, updateError] = useState(false);
 
-    useEffect(() => {
-        console.log('en useEffect', appointment);
-    }, [appointment.txtId]);
+    // useEffect(() => {
+    //     console.log('en useEffect', appointment);
+    // }, [appointment.txtId]);
 
     //función que se ejecuta cuando se actualizan los campos 7777
     const updateState = (e) => {
-        // let id;
+        let id;
 
-        // if(e.target.name === 'txtPet' &&
-        //     appointment.txtId === null){
-        //     id = uuid();
+        if(e.target.name === 'txtPet' &&
+            appointment.txtId === null){
+            id = uuid();
 
-        //     updateAppointment({
-        //         ...appointment,
-        //         [e.target.name]: e.target.value,
-        //         txtId: id
-        //     });
-        // }
-        // else{
-        //     updateAppointment({
-        //         ...appointment,
-        //         [e.target.name]: e.target.value
-        //     });
-        // }
+            updateAppointment({
+                ...appointment,
+                [e.target.name]: e.target.value,
+                txtId: id
+            });
+        }
+        else{
+            updateAppointment({
+                ...appointment,
+                [e.target.name]: e.target.value
+            });
+        }
 
-        updateAppointment({
-            ...appointment,
-            [e.target.name]: e.target.value
-        });
+        // updateAppointment({
+        //     ...appointment,
+        //     [e.target.name]: e.target.value
+        // });
     }
-
-
 
     // boton agregar
     const submitAppointment = (e) => {
@@ -62,23 +60,30 @@ const Form = () => {
         updateError(false);
 
         //asignar id
-        let id = uuid();
+        // let id = uuid();
 
-        updateAppointment({
-            ...appointment,
-            txtId: id
-        });
+        // updateAppointment({
+        //     ...appointment,
+        //     txtId: id
+        // });
         
         console.log('submitAppointment', appointment);
 
-        
-
         //crear cita
+        createAppointment(appointment);
 
         //reiniciar el form
+        updateAppointment({
+            txtId: null,
+            txtPet: '',
+            txtOwner: '',
+            txtDate: '',
+            txtTime: '',
+            txtSymptom: ''
+        })
     }
 
-    const  { txtId, txtPet, txtOwner, txtDate, txtTime, txtSymptom } = appointment;
+    const  { txtPet, txtOwner, txtDate, txtTime, txtSymptom } = appointment;
 
     return (
         <Fragment>
@@ -134,12 +139,6 @@ const Form = () => {
                     onChange={updateState}
                     value={txtSymptom}>
                 </textarea>
-                {/* <div style={{display: 'none'}}>
-                    <input type="hidden"
-                        id="txtId"
-                        name="txtId"
-                        value={txtId} />
-                </div> */}
 
                 <button type="submit" className="u-full-width button-primary">
                     Agregar cita
