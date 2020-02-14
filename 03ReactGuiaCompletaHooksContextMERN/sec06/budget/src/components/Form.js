@@ -1,29 +1,56 @@
 import React, { useState } from 'react';
+import shortid from 'shortid';
 
-const Form = () => {
-    const [name, setName] = useState('');
+import Error from './Error';
+
+const Form = ({addNewExpense}) => {
+    const [nameExpense, setNameExpense] = useState('');
     const [quantity, setQuantity] = useState(0);
+    const [error, setError] = useState(false);    
 
     const addExpense = (e) => {
         e.preventDefault();
 
         //validar
+        if(quantity < 1 || isNaN(quantity) || nameExpense.trim() === "" ){
+            setError(true);
+            return;
+        }
+
+        setError(false);
 
         //construir gasto
+        const expense = {
+            nameExpense,
+            quantity,
+            id: shortid.generate()
+        }
+
+        addNewExpense(expense);
+
+        setNameExpense('');
+        setQuantity(0);
     }
 
     return (
         <form action=""
             onSubmit={addExpense}>
             <h2>Agregar gasto</h2>
+
+            {
+                error ?
+                    <Error message="Error en los datos del gasto"/>
+                :
+                    null
+            }
             
             <div className="campo">
                 <label htmlFor="">Nombre Gasto</label>
                 <input type="text"
                     className="u-full-width"
                     placeholder="Ej. Transporte"
-                    value={name}
-                    onChange={e => setName(e.target.value)}/>
+                    value={nameExpense}
+                    onChange={e => setNameExpense(e.target.value)}/>
             </div>
 
             <div className="campo">

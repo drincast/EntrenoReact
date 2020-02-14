@@ -5,12 +5,15 @@ import React, { useState } from 'react';
 
 import QuestionBudget from './components/QuestionBudget';
 import Form from './components/Form';
+import ListExpense from './components/ListExpense';
+import BudgetControl from './components/BudgetControl';
 
 function App() {
     //state
     const [budget, setBudget] = useState(0);
     const [remainingBudget, setRemainingBudget] = useState(0);
     const [showQuestion, setShowQuestion] = useState(true);
+    const [expenses, setExpenses] = useState([]);
 
     function ShowQuestion() {
         if(showQuestion){
@@ -25,6 +28,32 @@ function App() {
         }
     }
 
+    function ShowFormAndList() {
+        if(!showQuestion){
+            return (
+                <div className="row">
+                    <div className="one-half column">
+                        <Form addNewExpense={addNewExpense} />
+                    </div>
+
+                    <div className="one-half column">
+                        <ListExpense expenses={expenses} />
+                    </div>
+                </div>
+            );
+        } 
+        else{
+            return null
+        }
+    }
+
+    const addNewExpense = expense => {        
+        setExpenses([
+            ...expenses,
+            expense
+        ]);
+    }
+
     return (
         <div className="container">
             <header>
@@ -34,17 +63,9 @@ function App() {
                     {
                         ShowQuestion()
                     }
-                    
-
-                    <div className="row">
-                        <div className="one-half column">
-                            <Form />
-                        </div>
-
-                        <div className="one-half column">
-                            2
-                        </div>
-                    </div>
+                    {
+                        ShowFormAndList()
+                    }
                 </div>
             </header>
         </div>
