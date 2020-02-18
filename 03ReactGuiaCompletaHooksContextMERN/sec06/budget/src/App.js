@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import "core-js/stable";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import QuestionBudget from './components/QuestionBudget';
 import Form from './components/Form';
@@ -14,6 +14,24 @@ function App() {
     const [remainingBudget, setRemainingBudget] = useState(0);
     const [showQuestion, setShowQuestion] = useState(true);
     const [expenses, setExpenses] = useState([]);
+    const [expense, setExpense] = useState();
+
+    //useEffect actualiza remainigBudget
+    useEffect(() => {
+        if(expense !== undefined){
+
+            //add expense to vec expenses
+            setExpenses([
+                ...expenses,
+                expense
+            ]);
+
+            //subtract to the current budget
+            const currentBudget = remainingBudget - expense.quantity;
+            setRemainingBudget(currentBudget);
+            setExpense(undefined);
+        }        
+    }, [expense, expenses, remainingBudget]);
 
     function ShowQuestion() {
         if(showQuestion){
@@ -33,11 +51,15 @@ function App() {
             return (
                 <div className="row">
                     <div className="one-half column">
-                        <Form addNewExpense={addNewExpense} />
+                        {/* <Form addNewExpense={addNewExpense} /> */}
+                        <Form addNewExpense={setExpense} />
                     </div>
 
                     <div className="one-half column">
                         <ListExpense expenses={expenses} />
+
+                        <BudgetControl budget={budget}
+                            remainingBudget={remainingBudget} />
                     </div>
                 </div>
             );
@@ -47,12 +69,12 @@ function App() {
         }
     }
 
-    const addNewExpense = expense => {        
-        setExpenses([
-            ...expenses,
-            expense
-        ]);
-    }
+    // const addNewExpense = expense => {        
+    //     setExpenses([
+    //         ...expenses,
+    //         expense
+    //     ]);
+    // }
 
     return (
         <div className="container">
@@ -66,6 +88,8 @@ function App() {
                     {
                         ShowFormAndList()
                     }
+
+                    
                 </div>
             </header>
         </div>

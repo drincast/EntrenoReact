@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import shortid from 'shortid';
 
 import Error from './Error';
+import PropTypes from 'prop-types';
 
 const Form = ({addNewExpense}) => {
+    const refTxtNGasto = React.createRef();
+
     const [nameExpense, setNameExpense] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [error, setError] = useState(false);    
@@ -30,6 +33,8 @@ const Form = ({addNewExpense}) => {
 
         setNameExpense('');
         setQuantity(0);
+
+        refTxtNGasto.current.focus();
     }
 
     return (
@@ -50,7 +55,8 @@ const Form = ({addNewExpense}) => {
                     className="u-full-width"
                     placeholder="Ej. Transporte"
                     value={nameExpense}
-                    onChange={e => setNameExpense(e.target.value)}/>
+                    onChange={e => setNameExpense(e.target.value)}
+                    ref={refTxtNGasto}/>
             </div>
 
             <div className="campo">
@@ -68,5 +74,9 @@ const Form = ({addNewExpense}) => {
         </form>
     );
 }
+
+Form.propTypes = {
+    addNewExpense: PropTypes.func.isRequired
+ }
 
 export default Form;
