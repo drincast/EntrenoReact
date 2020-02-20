@@ -1,11 +1,14 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-import "core-js/stable";
+import 'core-js/stable';
 
-import React from 'react';
-import Header from './components/Header';
-
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+
+import Header from './components/Header';
+import Form from './components/Form';
+import Summary from './components/Summary';
+import Result from './components/Result';
 
 const StlDivContainer = styled.div
 `
@@ -20,12 +23,23 @@ const StlDivFormContainer = styled.div
 `;
 
 function App() {
+    const [summary, setSummary] = useState({});
+
+    const { data } = summary;
+
     return (
         <StlDivContainer>
             <Header title='Cotizador de seguros'/>
 
             <StlDivFormContainer>
-            
+                <Form setSummary={setSummary} />
+
+                {
+                    data ?
+                        <Summary data={summary}/>
+                    :
+                        null
+                }
             </StlDivFormContainer>
         </StlDivContainer>
     );
