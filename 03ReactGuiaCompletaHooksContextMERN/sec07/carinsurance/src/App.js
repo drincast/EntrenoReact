@@ -25,7 +25,7 @@ const StlDivFormContainer = styled.div
 function App() {
     const [summary, setSummary] = useState({});
 
-    const { data } = summary;
+    const { data, price=0 } = summary;
 
     return (
         <StlDivContainer>
@@ -33,13 +33,13 @@ function App() {
 
             <StlDivFormContainer>
                 <Form setSummary={setSummary} />
-
                 {
                     data ?
-                        <Summary data={summary}/>
+                        <Summary data={summary.data}/>
                     :
                         null
                 }
+                <Result price={price}/>
             </StlDivFormContainer>
         </StlDivContainer>
     );

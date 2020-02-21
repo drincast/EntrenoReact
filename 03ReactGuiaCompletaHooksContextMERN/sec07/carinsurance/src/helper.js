@@ -25,3 +25,7 @@ export function getIncrementForBrand(value, brand) {
 export function getIncrementForPlan(plan) {
     return (plan === 'basico' ? 1.20 : 1.50);
 }
+
+export function ShowFirtsLetterToUpperCase(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
