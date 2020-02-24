@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ShowFirtsLetterToUpperCase } from '../helper';
 import './Summary.css';
 
@@ -17,6 +18,10 @@ const Summary = ({ data }) => {
             </ul>
         </div>
     );
+}
+
+Summary.propTypes = {
+    data: PropTypes.object.isRequired
 }
 
 export default Summary;

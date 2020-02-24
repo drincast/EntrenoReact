@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Error from './Error';
 import { getDateDifference, getIncrementForBrand 
@@ -6,7 +7,9 @@ import { getDateDifference, getIncrementForBrand
 
 import { StlButtom, StlField, StlInputRadio, StlLabel, StlSelect } from './FormStyle';
 
-const Form = ({ setSummary }) => {
+
+
+const Form = ({ setSummary, setSpinnerLoad }) => {
     const [data, setData] = useState({
         brand: '',
         year: '',
@@ -58,12 +61,18 @@ const Form = ({ setSummary }) => {
         //incrementar segun el plan, basico el 20%, completo 50%
         result = parseFloat(getIncrementForPlan(plan) * result).toFixed(2);
 
-        console.log(result);
+        setSpinnerLoad(true);
 
-        setSummary({
-            price: result,
-            data
-        })
+        setTimeout(() => {
+            setSpinnerLoad(false);
+
+            setSummary({
+                price: Number(result),
+                data
+            })
+        }, 3000);
+
+        
     }
 
     return (
@@ -117,6 +126,12 @@ const Form = ({ setSummary }) => {
             <StlButtom type="submit">Cotizar</StlButtom>
         </form>
     );
+}
+
+
+Form.propTypes = {
+    setSummary: PropTypes.func.isRequired,
+    setSpinnerLoad: PropTypes.func.isRequired
 }
 
 export default Form;

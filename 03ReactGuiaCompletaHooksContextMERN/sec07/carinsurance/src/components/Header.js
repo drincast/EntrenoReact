@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 const StlHeader = styled.header
@@ -23,6 +24,10 @@ function Header({title}) {
             <StlH1>{title}</StlH1>
         </StlHeader>
     );
+}
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired
 }
 
 export default Header;

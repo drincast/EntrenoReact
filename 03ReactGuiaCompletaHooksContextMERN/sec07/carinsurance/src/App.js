@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Form from './components/Form';
 import Summary from './components/Summary';
 import Result from './components/Result';
+import Spinner from './components/Spinner';
 
 const StlDivContainer = styled.div
 `
@@ -24,6 +25,7 @@ const StlDivFormContainer = styled.div
 
 function App() {
     const [summary, setSummary] = useState({});
+    const [spinnerLoad, setSpinnerLoad] = useState(false);
 
     const { data, price=0 } = summary;
 
@@ -32,14 +34,23 @@ function App() {
             <Header title='Cotizador de seguros'/>
 
             <StlDivFormContainer>
-                <Form setSummary={setSummary} />
+                <Form setSummary={setSummary}
+                    setSpinnerLoad={setSpinnerLoad} />
                 {
                     data ?
                         <Summary data={summary.data}/>
                     :
                         null
                 }
-                <Result price={price}/>
+                
+                {
+                    spinnerLoad ? <Spinner /> : null
+                }
+                
+
+                {
+                    !spinnerLoad ? <Result price={price} /> : null
+                }
             </StlDivFormContainer>
         </StlDivContainer>
     );
