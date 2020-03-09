@@ -25,8 +25,6 @@ const Select = styled.select`
 const useCryptoCoin = (label, iniState, options) => {
     const [state, setState] = useState(iniState);
 
-    console.log(options);
-
     const SelectedCrypto = () => (
         <Fragment>
             <Label>{label}</Label>
