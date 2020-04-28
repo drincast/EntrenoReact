@@ -13,7 +13,7 @@ const Image = ({ image }) => {
                 </div>
 
                 <div className="card-footer">
-                    <a href={largeImageURL}
+                    <a href={previewURL}
                         target='_blank'
                         className='btn btn-primary btn-block'
                         rel="noopener noreferrer">
