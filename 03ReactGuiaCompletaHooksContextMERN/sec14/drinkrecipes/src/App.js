@@ -3,9 +3,12 @@ import React, { Fragment } from 'react';
 import Header from './components/Header';
 import Form from './components/Form';
 
+//uso de context API, context creado
+import CategotyProvider from './context/CategoryContext';
+
 function App() {
     return (
-        <Fragment>
+        <CategotyProvider>
             <Header />
             <div className="container mt-5">
                 <div className="row">
@@ -14,7 +17,7 @@ function App() {
                     </Form>
                 </div>
             </div>
-        </Fragment>
+        </CategotyProvider>
     );
 }
 
